@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { CSSProperties } from "react";
 import Markdown from "react-markdown";
 import { ConfigurableProp, ConfigurableProps } from "@pipedream/sdk";

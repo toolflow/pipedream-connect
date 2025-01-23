@@ -3,7 +3,7 @@
   "version": "1.0.0-preview.23",
   "description": "Pipedream Connect library for React",
   "files": [
-    "dist"
+    "dist/"
   ],
   "type": "module",
   "browser": "./dist/connect-react.umd.js",
@@ -38,7 +38,9 @@
     "@types/lodash.isequal": "^4.5.8",
     "@types/react": "^18.3.12",
     "vite": "^5.4.11",
-    "vite-plugin-dts": "^4.3.0"
+    "vite-plugin-dts": "^4.3.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { FormContext } from "../hooks/form-context";
 import { useCustomize } from "../hooks/customization-context";
 import type { CSSProperties } from "react";

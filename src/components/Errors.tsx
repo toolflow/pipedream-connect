@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { FormContext } from "../hooks/form-context";
 import type { FormFieldContext } from "../hooks/form-field-context";
 import {

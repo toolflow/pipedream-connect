@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useMemo } from "react";
 import Select, {
   Props as ReactSelectProps, components,

@@ -1,10 +1,8 @@
 import { Account } from '@pipedream/sdk';
 import { AccountsRequestResponse } from '@pipedream/sdk';
 import { App } from '@pipedream/sdk';
-import { App as App_2 } from '@pipedream/sdk/browser';
 import { AppResponse } from '@pipedream/sdk';
 import { BrowserClient } from '@pipedream/sdk/browser';
-import { ButtonProps as ButtonProps_2 } from '../components/LoadMoreButton';
 import { ClassNamesConfig } from 'react-select';
 import { Component } from 'react';
 import { ComponentProps } from 'react';
@@ -22,14 +20,11 @@ import { GetAccountOpts } from '@pipedream/sdk';
 import { GetAccountsResponse } from '@pipedream/sdk';
 import { GetAppResponse } from '@pipedream/sdk';
 import { GetAppsOpts } from '@pipedream/sdk';
-import { GetAppsResponse } from '@pipedream/sdk/browser';
 import { GetComponentOpts } from '@pipedream/sdk';
 import { GetComponentResponse } from '@pipedream/sdk';
-import { GetComponentsResponse } from '@pipedream/sdk/browser';
 import { GroupBase } from 'react-select';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
 import { JSXElementConstructor } from 'react';
-import { OptionalFieldButtonProps as OptionalFieldButtonProps_2 } from '../components/OptionalFieldButton';
 import { Props } from 'react-select';
 import { PropValue } from '@pipedream/sdk';
 import { QueryObserverResult } from '@tanstack/react-query';
@@ -40,7 +35,6 @@ import { StylesConfig } from 'react-select';
 import { Theme as Theme_2 } from 'react-select';
 import { UseQueryOptions } from '@tanstack/react-query';
 import { V1Component } from '@pipedream/sdk';
-import { V1Component as V1Component_2 } from '@pipedream/sdk/browser';
 
 export declare function Alert({ prop }: AlertProps): JSX_2.Element;
 
@@ -226,8 +220,8 @@ export declare const defaultComponents: {
     Description: typeof Description;
     Errors: typeof Errors;
     Label: typeof Label;
-    OptionalFieldButton: (props: OptionalFieldButtonProps_2) => JSX_2.Element;
-    Button: (props: ButtonProps_2) => JSX_2.Element;
+    OptionalFieldButton: (props: OptionalFieldButtonProps) => JSX_2.Element;
+    Button: (props: ButtonProps) => JSX_2.Element;
 };
 
 export declare const defaultTheme: Theme;
@@ -712,8 +706,8 @@ export declare const useApp: (slug: string, opts?: {
  * Get list of apps that can be authenticated
  */
 export declare const useApps: (input?: GetAppsOpts) => {
-    apps: App_2[] | undefined;
-    data: GetAppsResponse;
+    apps: any;
+    data: any;
     error: Error;
     isError: true;
     isPending: false;
@@ -735,12 +729,12 @@ export declare const useApps: (input?: GetAppsOpts) => {
     isPlaceholderData: boolean;
     isRefetching: boolean;
     isStale: boolean;
-    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<GetAppsResponse, Error>>;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
     fetchStatus: FetchStatus;
-    promise: Promise<GetAppsResponse>;
+    promise: Promise<any>;
 } | {
-    apps: App_2[] | undefined;
-    data: GetAppsResponse;
+    apps: any;
+    data: any;
     error: null;
     isError: false;
     isPending: false;
@@ -762,11 +756,11 @@ export declare const useApps: (input?: GetAppsOpts) => {
     isPlaceholderData: boolean;
     isRefetching: boolean;
     isStale: boolean;
-    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<GetAppsResponse, Error>>;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
     fetchStatus: FetchStatus;
-    promise: Promise<GetAppsResponse>;
+    promise: Promise<any>;
 } | {
-    apps: App_2[] | undefined;
+    apps: any;
     data: undefined;
     error: Error;
     isError: true;
@@ -789,11 +783,11 @@ export declare const useApps: (input?: GetAppsOpts) => {
     isPlaceholderData: boolean;
     isRefetching: boolean;
     isStale: boolean;
-    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<GetAppsResponse, Error>>;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
     fetchStatus: FetchStatus;
-    promise: Promise<GetAppsResponse>;
+    promise: Promise<any>;
 } | {
-    apps: App_2[] | undefined;
+    apps: any;
     data: undefined;
     error: null;
     isError: false;
@@ -816,11 +810,11 @@ export declare const useApps: (input?: GetAppsOpts) => {
     isPlaceholderData: boolean;
     isRefetching: boolean;
     isStale: boolean;
-    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<GetAppsResponse, Error>>;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
     fetchStatus: FetchStatus;
-    promise: Promise<GetAppsResponse>;
+    promise: Promise<any>;
 } | {
-    apps: App_2[] | undefined;
+    apps: any;
     data: undefined;
     error: null;
     isError: false;
@@ -843,9 +837,9 @@ export declare const useApps: (input?: GetAppsOpts) => {
     isPlaceholderData: boolean;
     isRefetching: boolean;
     isStale: boolean;
-    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<GetAppsResponse, Error>>;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
     fetchStatus: FetchStatus;
-    promise: Promise<GetAppsResponse>;
+    promise: Promise<any>;
 };
 
 /**
@@ -996,8 +990,8 @@ export declare const useComponent: ({ key }: {
  * Get list of components
  */
 export declare const useComponents: (input?: GetComponentOpts) => {
-    components: Omit<V1Component_2, "configurable_props">[];
-    data: GetComponentsResponse;
+    components: any;
+    data: any;
     error: Error;
     isError: true;
     isPending: false;
@@ -1019,12 +1013,12 @@ export declare const useComponents: (input?: GetComponentOpts) => {
     isPlaceholderData: boolean;
     isRefetching: boolean;
     isStale: boolean;
-    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<GetComponentsResponse, Error>>;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
     fetchStatus: FetchStatus;
-    promise: Promise<GetComponentsResponse>;
+    promise: Promise<any>;
 } | {
-    components: Omit<V1Component_2, "configurable_props">[];
-    data: GetComponentsResponse;
+    components: any;
+    data: any;
     error: null;
     isError: false;
     isPending: false;
@@ -1046,11 +1040,11 @@ export declare const useComponents: (input?: GetComponentOpts) => {
     isPlaceholderData: boolean;
     isRefetching: boolean;
     isStale: boolean;
-    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<GetComponentsResponse, Error>>;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
     fetchStatus: FetchStatus;
-    promise: Promise<GetComponentsResponse>;
+    promise: Promise<any>;
 } | {
-    components: Omit<V1Component_2, "configurable_props">[];
+    components: any;
     data: undefined;
     error: Error;
     isError: true;
@@ -1073,11 +1067,11 @@ export declare const useComponents: (input?: GetComponentOpts) => {
     isPlaceholderData: boolean;
     isRefetching: boolean;
     isStale: boolean;
-    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<GetComponentsResponse, Error>>;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
     fetchStatus: FetchStatus;
-    promise: Promise<GetComponentsResponse>;
+    promise: Promise<any>;
 } | {
-    components: Omit<V1Component_2, "configurable_props">[];
+    components: any;
     data: undefined;
     error: null;
     isError: false;
@@ -1100,11 +1094,11 @@ export declare const useComponents: (input?: GetComponentOpts) => {
     isPlaceholderData: boolean;
     isRefetching: boolean;
     isStale: boolean;
-    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<GetComponentsResponse, Error>>;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
     fetchStatus: FetchStatus;
-    promise: Promise<GetComponentsResponse>;
+    promise: Promise<any>;
 } | {
-    components: Omit<V1Component_2, "configurable_props">[];
+    components: any;
     data: undefined;
     error: null;
     isError: false;
@@ -1127,9 +1121,9 @@ export declare const useComponents: (input?: GetComponentOpts) => {
     isPlaceholderData: boolean;
     isRefetching: boolean;
     isStale: boolean;
-    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<GetComponentsResponse, Error>>;
+    refetch: (options?: RefetchOptions) => Promise<QueryObserverResult<any, Error>>;
     fetchStatus: FetchStatus;
-    promise: Promise<GetComponentsResponse>;
+    promise: Promise<any>;
 };
 
 export declare function useCustomize(): Customization;
@@ -1138,6 +1132,6 @@ export declare const useFormContext: () => FormContext<any>;
 
 export declare const useFormFieldContext: <T extends ConfigurableProp>() => FormFieldContext<T>;
 
-export declare const useFrontendClient: () => BrowserClient;
+export declare const useFrontendClient: () => any;
 
 export { }
