@@ -17,8 +17,7 @@
     }
   },
   "scripts": {
-    "build": "webpack --config webpack.config.cjs",
-    "build:types": "tsc --emitDeclarationOnly",
+    "build": "vite build",
     "prepare": "yarn run build"
   },
   "publishConfig": {
