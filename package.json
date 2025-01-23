@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "vite build",
-    "prepare": "pnpm run build"
+    "prepare": "yarn run build"
   },
   "publishConfig": {
     "access": "public"
