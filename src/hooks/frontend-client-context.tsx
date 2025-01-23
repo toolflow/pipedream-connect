@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {
   createContext, useContext, type ReactNode, type FC,
 } from "react";

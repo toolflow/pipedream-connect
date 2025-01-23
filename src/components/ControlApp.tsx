@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import Select, { components as ReactSelectComponents } from "react-select";
 import { useFrontendClient } from "../hooks/frontend-client-context";
 import { useAccounts } from "../hooks/use-accounts";

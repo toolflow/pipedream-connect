@@ -17,7 +17,8 @@
     }
   },
   "scripts": {
-    "build": "vite build",
+    "build": "webpack --config webpack.config.cjs",
+    "build:types": "tsc --emitDeclarationOnly",
     "prepare": "yarn run build"
   },
   "publishConfig": {
@@ -37,8 +38,13 @@
     "@emotion/react": "^11.13.5",
     "@types/lodash.isequal": "^4.5.8",
     "@types/react": "^18.3.12",
+    "clean-webpack-plugin": "^4.0.0",
+    "terser-webpack-plugin": "^5.3.11",
+    "ts-loader": "^9.5.2",
     "vite": "^5.4.11",
-    "vite-plugin-dts": "^4.3.0"
+    "vite-plugin-dts": "^4.3.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
