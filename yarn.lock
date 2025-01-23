@@ -443,7 +443,7 @@
   resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.15.1.tgz#d4f6937353bc4568292654efb0a0e0532adbcba2"
   integrity sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==
 
-"@pipedream/sdk@workspace:^":
+"@pipedream/sdk@^1.1.6":
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/@pipedream/sdk/-/sdk-1.1.6.tgz#8ec197e13f19d77868f97e75be7c5c8339d6ac1e"
   integrity sha512-EJsL6dkTjkxe04962rP77Gm90EPhqgkGfrgWm44fDsR4VQwVsw6TnREtXxu41ePVBO4wSQmtbXNCJHxQoFdSGg==
