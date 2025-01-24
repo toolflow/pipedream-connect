@@ -12775,18 +12775,10 @@ function ly() {
   }, e), checked: n ?? !1, onChange: (u) => r(u.target.checked) });
 }
 function cy() {
-  const e = Rn(), {
-    id: t,
-    onChange: n,
-    prop: r,
-    value: i
-  } = e, {
-    getProps: o,
-    theme: u
-  } = Ye(), a = {
+  const e = Rn(), { id: t, onChange: n, prop: r, value: i } = e, { getProps: o, theme: u } = Ye(), a = {
     color: u.colors.neutral60,
     display: "block",
-    border: "1px solid",
+    border: "2px solid",
     borderColor: u.colors.neutral20,
     padding: 6,
     width: "100%",
@@ -12815,6 +12807,7 @@ function cy() {
       ...o("controlInput", a, e),
       min: "min" in r ? r.min : void 0,
       max: "max" in r ? r.max : void 0,
+      placeholder: "test",
       autoComplete: s,
       "data-lpignore": "true",
       "data-1p-ignore": "true",
