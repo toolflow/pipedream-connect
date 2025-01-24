@@ -10,7 +10,7 @@ export function ControlInput() {
   const baseStyles: CSSProperties = {
     color: theme.colors.neutral60,
     display: "block",
-    border: "1px solid",
+    border: "2px solid",
     borderColor: theme.colors.neutral20,
     padding: 6,
     width: "100%",
