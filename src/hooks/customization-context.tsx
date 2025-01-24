@@ -41,6 +41,7 @@ export const defaultComponents = {
   Label,
   OptionalFieldButton,
   Button: LoadMoreButton,
+  ControlInput
 };
 
 export type ReactSelectComponents = {

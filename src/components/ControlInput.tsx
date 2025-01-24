@@ -1,8 +1,13 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useFormFieldContext } from "../hooks/form-field-context";
 import { useCustomize } from "../hooks/customization-context";
 
-export function ControlInput() {
+type ControlInputProps = {
+  customInput?: ReactNode;
+  // Add other props if needed
+};
+
+export function ControlInput(props: ControlInputProps) {
   const formFieldContextProps = useFormFieldContext();
   const { id, onChange, prop, value } = formFieldContextProps;
   const { getProps, theme } = useCustomize();
@@ -38,6 +43,10 @@ export function ControlInput() {
   if ("secret" in prop && prop.secret) {
     inputType = "password";
     autoComplete = "new-password"; // in chrome, this is better than "off" here
+  }
+
+  if (props.customInput) {
+    return <>{props.customInput}</>;
   }
 
   return (

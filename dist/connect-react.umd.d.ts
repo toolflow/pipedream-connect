@@ -105,7 +105,11 @@ declare type ControlAppProps = {
 
 export declare function ControlBoolean(): JSX_2.Element;
 
-export declare function ControlInput(): JSX_2.Element;
+export declare function ControlInput(props: ControlInputProps): JSX_2.Element;
+
+declare type ControlInputProps = {
+    customInput?: ReactNode;
+};
 
 declare type ControlProps<T extends ConfigurableProps, U extends ConfigurableProp> = {
     field: FormFieldContext<U>;
@@ -222,6 +226,7 @@ export declare const defaultComponents: {
     Label: typeof Label;
     OptionalFieldButton: (props: OptionalFieldButtonProps) => JSX_2.Element;
     Button: (props: ButtonProps) => JSX_2.Element;
+    ControlInput: typeof ControlInput;
 };
 
 export declare const defaultTheme: Theme;
