@@ -6,6 +6,7 @@ import {
   ConfigurableProps,
 } from "@pipedream/sdk";
 // import { ControlAny } from "./ControlAny"
+import { useCustomize } from "../hooks/customization-context";
 import { ControlApp } from "./ControlApp";
 import { ControlBoolean } from "./ControlBoolean";
 import { ControlInput } from "./ControlInput";
