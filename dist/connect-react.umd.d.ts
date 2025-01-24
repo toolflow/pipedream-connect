@@ -147,6 +147,8 @@ export declare type CustomComponents<Option, IsMulti extends boolean, Group exte
     [K in keyof typeof defaultComponents]: typeof defaultComponents[K];
 } & {
     [K in keyof ReactSelectComponents]: SelectComponentsConfig<Option, IsMulti, Group>;
+} & {
+    ControlInput: typeof ControlInput;
 };
 
 export declare type CustomComponentsConfig<T, U extends boolean, V extends GroupBase<T>> = Partial<CustomComponents<T, U, V>>;

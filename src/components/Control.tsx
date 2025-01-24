@@ -27,6 +27,8 @@ export function Control<T extends ConfigurableProps, U extends ConfigurableProp>
   const {
     prop, idx,
   } = field;
+  const { getComponents } = useCustomize(); 
+  const { ControlInput } = getComponents();
   const app = "app" in field.extra
     ? field.extra.app
     : undefined;

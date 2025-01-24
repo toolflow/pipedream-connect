@@ -35,6 +35,7 @@ import { Label } from "../components/Label";
 import { OptionalFieldButton } from "../components/OptionalFieldButton";
 import { LoadMoreButton } from "../components/LoadMoreButton";
 
+
 export const defaultComponents = {
   Description,
   Errors,
@@ -53,6 +54,8 @@ export type CustomComponents<Option, IsMulti extends boolean, Group extends Grou
   [K in keyof typeof defaultComponents]: typeof defaultComponents[K]
 } & {
   [K in keyof ReactSelectComponents]: ReactSelectComponentsConfig<Option, IsMulti, Group>
+} & {
+  ControlInput: typeof ControlInput;
 };
 
 export type ComponentLibrary = typeof defaultComponents;
