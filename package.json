@@ -19,7 +19,7 @@
   "scripts": {
     "build": "vite build",
     "prepare": "yarn run build",
-     "start": "vite"
+    "start": "vite"
   },
   "publishConfig": {
     "access": "public"

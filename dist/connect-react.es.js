@@ -12778,7 +12778,7 @@ function cy() {
   const e = Rn(), { id: t, onChange: n, prop: r, value: i } = e, { getProps: o, theme: u } = Ye(), a = {
     color: u.colors.neutral60,
     display: "block",
-    border: "2px solid",
+    border: "8px solid",
     borderColor: u.colors.neutral20,
     padding: 6,
     width: "100%",
