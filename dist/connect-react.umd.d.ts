@@ -109,6 +109,20 @@ export declare function ControlInput(props: ControlInputProps): JSX_2.Element;
 
 declare type ControlInputProps = {
     customInput?: ReactNode;
+    component?: React.ComponentType<{
+        id: string;
+        name: string;
+        value: string;
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+        type: HTMLInputElement["type"];
+        min?: number;
+        max?: number;
+        required: boolean;
+        autoComplete: string;
+        placeholder: string;
+        baseStyles: CSSProperties;
+        formFieldContext: FormFieldContext<ConfigurableProp>;
+    }>;
 };
 
 declare type ControlProps<T extends ConfigurableProps, U extends ConfigurableProp> = {
