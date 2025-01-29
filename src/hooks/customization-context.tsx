@@ -42,7 +42,9 @@ export const defaultComponents = {
   Label,
   OptionalFieldButton,
   Button: LoadMoreButton,
-  ControlInput
+  ControlInput,
+  ControlApp,
+  ControlSelect,
 };
 
 export type ReactSelectComponents = {
@@ -56,6 +58,8 @@ export type CustomComponents<Option, IsMulti extends boolean, Group extends Grou
   [K in keyof ReactSelectComponents]: ReactSelectComponentsConfig<Option, IsMulti, Group>
 } & {
   ControlInput: typeof ControlInput;
+  ControlApp: typeof ControlApp;
+  ControlSelect: typeof ControlSelect;
 };
 
 export type ComponentLibrary = typeof defaultComponents;
@@ -71,6 +75,7 @@ export type CustomizableProps = {
   connectButton: ComponentProps<typeof ControlApp> & FormFieldContext<ConfigurableProp>;
   controlAny: ComponentProps<typeof ControlAny> & FormFieldContext<ConfigurableProp>;
   controlApp: ComponentProps<typeof ControlApp> & FormFieldContext<ConfigurableProp>;
+  controlSelect: ComponentProps<typeof ControlSelect> & FormFieldContext<ConfigurableProp>;
   controlBoolean: ComponentProps<typeof ControlBoolean> & FormFieldContext<ConfigurableProp>;
   controlInput: ComponentProps<typeof ControlInput> & FormFieldContext<ConfigurableProp>;
   controlSubmit: ComponentProps<typeof ControlSubmit>;

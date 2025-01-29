@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 import { FormContext } from "../hooks/form-context";
 import { FormFieldContext } from "../hooks/form-field-context";
 import {
@@ -7,10 +7,10 @@ import {
 } from "@pipedream/sdk";
 // import { ControlAny } from "./ControlAny"
 import { useCustomize } from "../hooks/customization-context";
-import { ControlApp } from "./ControlApp";
 import { ControlBoolean } from "./ControlBoolean";
 import { ControlInput } from "./ControlInput";
 import { ControlSelect } from "./ControlSelect";
+import { ControlApp } from "./ControlApp";
 import { RemoteOptionsContainer } from "./RemoteOptionsContainer";
 
 export type ControlProps<T extends ConfigurableProps, U extends ConfigurableProp> = {
@@ -30,6 +30,8 @@ export function Control<T extends ConfigurableProps, U extends ConfigurableProp>
   } = field;
   const { getComponents } = useCustomize(); 
   const { ControlInput } = getComponents();
+  const { ControlApp } = getComponents();
+  const { ControlSelect } = getComponents();
   const app = "app" in field.extra
     ? field.extra.app
     : undefined;
@@ -46,7 +48,10 @@ export function Control<T extends ConfigurableProps, U extends ConfigurableProp>
         value: o,
       }));
     }
-    return <ControlSelect options={options} components={{
+    return <ControlSelect options={options.map((o: unknown) => ({
+      label: String(o),
+      value: o,
+    }))}  components={{
       IndicatorSeparator: () => null,
     }} />; // TODO fix typing issue here!
   }
@@ -62,7 +67,7 @@ export function Control<T extends ConfigurableProps, U extends ConfigurableProp>
       IndicatorSeparator: () => null,
     }} />;
   }
-
+  
   switch (prop.type) {
   // problem with this is that it should be the JSON value, but if it is at any point
   // not a valid json value, it should just be the string so the value is not lost... so it's just very odd

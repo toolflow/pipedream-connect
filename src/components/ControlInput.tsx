@@ -1,24 +1,46 @@
 import type { CSSProperties, ReactNode } from "react";
-import { useFormFieldContext } from "../hooks/form-field-context";
+import {
+  FormFieldContext,
+  useFormFieldContext,
+} from "../hooks/form-field-context";
 import { useCustomize } from "../hooks/customization-context";
+import { ConfigurableProp } from "@pipedream/sdk";
 
 type ControlInputProps = {
   customInput?: ReactNode;
-  // Add other props if needed
+  // Add render props pattern for full control
+  component?: React.ComponentType<{
+    id: string;
+    name: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    type: HTMLInputElement["type"];
+    min?: number;
+    max?: number;
+    required: boolean;
+    autoComplete: string;
+    temp: string;
+    placeholder: string;
+    baseStyles: CSSProperties;
+    // Pass through the full context in case it's needed
+    formFieldContext: FormFieldContext<ConfigurableProp>;
+  }>;
 };
 
 export function ControlInput(props: ControlInputProps) {
   const formFieldContextProps = useFormFieldContext();
   const { id, onChange, prop, value } = formFieldContextProps;
   const { getProps, theme } = useCustomize();
+  console.log("PROPS ControlInput", props);
 
   const baseStyles: CSSProperties = {
     color: theme.colors.neutral60,
     display: "block",
-    border: "8px solid",
+    border: "1px solid",
     borderColor: theme.colors.neutral20,
     padding: 6,
     width: "100%",
+    minWidth: "400px",
     borderRadius: theme.borderRadius,
     gridArea: "control",
     boxShadow: theme.boxShadow.input,
@@ -45,25 +67,59 @@ export function ControlInput(props: ControlInputProps) {
     autoComplete = "new-password"; // in chrome, this is better than "off" here
   }
 
-  if (props.customInput) {
-    return <>{props.customInput}</>;
+  // if (props.customInput) {
+  //   return <>{props.customInput}</>;
+  // }
+
+  const inputProps = {
+    id,
+    name: prop.name,
+    value: value ?? "",
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+      onChange(toOnChangeValue(e.target.value)),
+    type: inputType,
+    min: "min" in prop ? prop.min : undefined,
+    max: "max" in prop ? prop.max : undefined,
+    required: !prop.optional,
+    autoComplete,
+    placeholder: "test",
+    baseStyles,
+    formFieldContext: formFieldContextProps,
+    temp: "temp",
+  };
+
+  if (props.component) {
+    const CustomComponent = props.component;
+    console.log(getProps("controlInput", baseStyles, formFieldContextProps));
+    return (
+      <CustomComponent
+        {...inputProps}
+        {...getProps("controlInput", baseStyles, formFieldContextProps)}
+      />
+    );
   }
 
   return (
+    // <input
+    //   id={id}
+    //   type={inputType}
+    //   name={prop.name}
+    //   value={value ?? ""}
+    //   onChange={(e) => onChange(toOnChangeValue(e.target.value))}
+    //   {...getProps("controlInput", baseStyles, formFieldContextProps)}
+    //   min={"min" in prop ? prop.min : undefined}
+    //   max={"max" in prop ? prop.max : undefined}
+    //   placeholder="test"
+    //   autoComplete={autoComplete}
+    //   data-lpignore="true"
+    //   data-1p-ignore="true"
+    //   required={!prop.optional}
+    // />
     <input
-      id={id}
-      type={inputType}
-      name={prop.name}
-      value={value ?? ""}
-      onChange={(e) => onChange(toOnChangeValue(e.target.value))}
+      {...inputProps}
       {...getProps("controlInput", baseStyles, formFieldContextProps)}
-      min={"min" in prop ? prop.min : undefined}
-      max={"max" in prop ? prop.max : undefined}
-      placeholder="test"
-      autoComplete={autoComplete}
       data-lpignore="true"
       data-1p-ignore="true"
-      required={!prop.optional}
     />
   );
 }

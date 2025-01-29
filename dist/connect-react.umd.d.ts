@@ -13,6 +13,7 @@ import { ConfigurablePropApp } from '@pipedream/sdk';
 import { ConfigurableProps } from '@pipedream/sdk';
 import { ConfiguredProps } from '@pipedream/sdk';
 import { Context } from 'react';
+import { CSSObjectWithLabel } from 'react-select';
 import { CSSProperties } from 'react';
 import { FC } from 'react';
 import { FetchStatus } from '@tanstack/react-query';
@@ -119,6 +120,7 @@ declare type ControlInputProps = {
         max?: number;
         required: boolean;
         autoComplete: string;
+        temp: string;
         placeholder: string;
         baseStyles: CSSProperties;
         formFieldContext: FormFieldContext<ConfigurableProp>;
@@ -130,7 +132,7 @@ declare type ControlProps<T extends ConfigurableProps, U extends ConfigurablePro
     form: FormContext<T>;
 };
 
-export declare function ControlSelect<T>({ isCreatable, options, selectProps, showLoadMoreButton, onLoadMore, }: ControlSelectProps<T>): JSX_2.Element;
+export declare function ControlSelect<T>({ isCreatable, options, selectProps, showLoadMoreButton, onLoadMore, component: CustomComponent, }: ControlSelectProps<T>): JSX_2.Element;
 
 declare type ControlSelectProps<T> = {
     isCreatable?: boolean;
@@ -141,6 +143,22 @@ declare type ControlSelectProps<T> = {
     selectProps?: Props;
     showLoadMoreButton?: boolean;
     onLoadMore?: () => void;
+    component?: React.ComponentType<{
+        id: string;
+        instanceId: string;
+        options: {
+            label: string;
+            value: T;
+        }[];
+        value: any;
+        isMulti: boolean;
+        isClearable: boolean;
+        required: boolean;
+        onCreateOption?: (inputValue: string) => void;
+        onChange: (value: any) => void;
+        baseStyles: CSSObjectWithLabel;
+        formFieldContext: FormFieldContext<ConfigurableProp>;
+    }>;
 };
 
 export declare function ControlSubmit(props: ControlSubmitProps): JSX_2.Element;
@@ -163,6 +181,8 @@ export declare type CustomComponents<Option, IsMulti extends boolean, Group exte
     [K in keyof ReactSelectComponents]: SelectComponentsConfig<Option, IsMulti, Group>;
 } & {
     ControlInput: typeof ControlInput;
+    ControlApp: typeof ControlApp;
+    ControlSelect: typeof ControlSelect;
 };
 
 export declare type CustomComponentsConfig<T, U extends boolean, V extends GroupBase<T>> = Partial<CustomComponents<T, U, V>>;
@@ -172,6 +192,7 @@ export declare type CustomizableProps = {
     connectButton: ComponentProps<typeof ControlApp> & FormFieldContext<ConfigurableProp>;
     controlAny: ComponentProps<typeof ControlAny> & FormFieldContext<ConfigurableProp>;
     controlApp: ComponentProps<typeof ControlApp> & FormFieldContext<ConfigurableProp>;
+    controlSelect: ComponentProps<typeof ControlSelect> & FormFieldContext<ConfigurableProp>;
     controlBoolean: ComponentProps<typeof ControlBoolean> & FormFieldContext<ConfigurableProp>;
     controlInput: ComponentProps<typeof ControlInput> & FormFieldContext<ConfigurableProp>;
     controlSubmit: ComponentProps<typeof ControlSubmit>;
@@ -243,6 +264,8 @@ export declare const defaultComponents: {
     OptionalFieldButton: (props: OptionalFieldButtonProps) => JSX_2.Element;
     Button: (props: ButtonProps) => JSX_2.Element;
     ControlInput: typeof ControlInput;
+    ControlApp: typeof ControlApp;
+    ControlSelect: typeof ControlSelect;
 };
 
 export declare const defaultTheme: Theme;

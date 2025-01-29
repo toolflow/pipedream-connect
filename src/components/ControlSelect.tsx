@@ -3,12 +3,13 @@ import { useMemo } from "react";
 import Select, {
   Props as ReactSelectProps, components,
 } from "react-select";
-import type { CSSObjectWithLabel } from "react-select";
+import type { CSSObjectWithLabel, GroupBase, MenuListProps } from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { useFormFieldContext } from "../hooks/form-field-context";
+import { FormFieldContext, useFormFieldContext } from "../hooks/form-field-context";
 import { useCustomize } from "../hooks/customization-context";
 import type { BaseReactSelectProps } from "../hooks/customization-context";
 import { LoadMoreButton } from "./LoadMoreButton";
+import { ConfigurableProp } from "@pipedream/sdk";
 
 // XXX T and ConfigurableProp should be related
 type ControlSelectProps<T> = {
@@ -17,10 +18,23 @@ type ControlSelectProps<T> = {
   selectProps?: ReactSelectProps;
   showLoadMoreButton?: boolean;
   onLoadMore?: () => void;
+  component?: React.ComponentType<{
+    id: string;
+    instanceId: string;
+    options: {label: string; value: T;}[];
+    value: any;
+    isMulti: boolean;
+    isClearable: boolean;
+    required: boolean;
+    onCreateOption?: (inputValue: string) => void;
+    onChange: (value: any) => void;
+    baseStyles: CSSObjectWithLabel;
+    formFieldContext: FormFieldContext<ConfigurableProp>;
+  }>;
 };
 
 export function ControlSelect<T>({
-  isCreatable, options, selectProps, showLoadMoreButton, onLoadMore,
+  isCreatable, options, selectProps, showLoadMoreButton, onLoadMore, component: CustomComponent,
 }: ControlSelectProps<T>) {
   const formFieldCtx = useFormFieldContext();
   const {
@@ -30,7 +44,7 @@ export function ControlSelect<T>({
     select, theme,
   } = useCustomize();
 
-  const baseSelectProps: BaseReactSelectProps<never, never, never> = {
+  const baseSelectProps: BaseReactSelectProps<any, any, any> = {
     styles: {
       container: (base): CSSObjectWithLabel => ({
         ...base,
@@ -85,16 +99,17 @@ export function ControlSelect<T>({
   const LoadMore = ({
     // eslint-disable-next-line react/prop-types
     children, ...props
-  }) => {
+  }: MenuListProps<unknown, boolean, GroupBase<unknown>>) => {
     return (
       <components.MenuList  {...props}>
         { children }
         <div className="pt-4">
-          <LoadMoreButton onChange={onLoadMore}/>
+          <LoadMoreButton onChange={() => onLoadMore?.()}/>
         </div>
       </components.MenuList>
     )
   }
+
 
   const props = select.getProps("controlSelect", baseSelectProps)
   if (showLoadMoreButton) {
@@ -108,9 +123,62 @@ export function ControlSelect<T>({
   const handleCreate = (inputValue: string) => {
     options.unshift({
       label: inputValue,
-      value: inputValue,
+      value: inputValue as unknown as T,
     })
   };
+
+  const defaultSelectProps = {
+    inputId: id,
+    instanceId: id,
+    options: options,
+    value: selectValue,
+    isMulti: prop.type.endsWith("[]"),
+    isClearable: true,
+    required: !prop.optional,
+    onCreateOption: handleCreate,
+    onChange: (o: any) => {
+      if (o) {
+        if (Array.isArray(o)) {
+          if (typeof o[0] === "object" && "value" in o[0]) {
+            const vs = [];
+            for (const _o of o) {
+              if (prop.withLabel) {
+                vs.push(_o);
+              } else {
+                vs.push(_o.value);
+              }
+            }
+            onChange(vs);
+          } else {
+            onChange(o);
+          }
+        } else if (typeof o === "object" && "value" in o) {
+          if (prop.withLabel) {
+            onChange({
+              __lv: o,
+            });
+          } else {
+            onChange(o.value);
+          }
+        } else {
+          throw new Error("unhandled option type");
+        }
+      } else {
+        onChange(undefined);
+      }
+    },
+    baseStyles: baseSelectProps.styles,
+    formFieldContext: formFieldCtx,
+  };
+
+  if (CustomComponent) {
+    return (
+      <CustomComponent
+        {...defaultSelectProps}
+        {...select.getProps("controlSelect", baseSelectProps) as any}
+      />
+    );
+  }
 
   const MaybeCreatableSelect = isCreatable
     ? CreatableSelect
