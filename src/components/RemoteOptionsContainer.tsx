@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { ComponentConfigureOpts } from "@pipedream/sdk";
@@ -7,9 +6,18 @@ import { useFormContext } from "../hooks/form-context";
 import { useFormFieldContext } from "../hooks/form-field-context";
 import { useFrontendClient } from "../hooks/frontend-client-context";
 import { ControlSelect } from "./ControlSelect";
+import Select from "react-select/dist/declarations/src/Select";
+import { useCustomize } from "../hooks/customization-context";
 
 export type RemoteOptionsContainerProps = {
   queryEnabled?: boolean;
+  component?: React.ComponentType<any>;
+};
+
+const SelectWrapper = (props: any) => {
+  const { getComponents } = useCustomize();
+  const { ControlSelect: CustomSelect } = getComponents();
+  return <CustomSelect {...props} />;
 };
 
 export function RemoteOptionsContainer({ queryEnabled }: RemoteOptionsContainerProps) {
@@ -184,6 +192,7 @@ export function RemoteOptionsContainer({ queryEnabled }: RemoteOptionsContainerP
   const isDisabled = disableQueryDisabling
     ? false
     : !queryEnabled;
+    
 
   return (
     <ControlSelect
@@ -191,6 +200,7 @@ export function RemoteOptionsContainer({ queryEnabled }: RemoteOptionsContainerP
       showLoadMoreButton={showLoadMoreButton()}
       onLoadMore={onLoadMore}
       options={pageable.data}
+      component={SelectWrapper}
       // XXX isSearchable if pageQuery? or maybe in all cases? or maybe NOT when pageQuery
       selectProps={{
         isLoading: isFetching,

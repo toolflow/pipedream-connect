@@ -10,6 +10,7 @@ import { ComponentRequestResponse } from '@pipedream/sdk';
 import { ConfigurableProp } from '@pipedream/sdk';
 import { ConfigurablePropAlert } from '@pipedream/sdk';
 import { ConfigurablePropApp } from '@pipedream/sdk';
+import { ConfigurablePropBoolean } from '@pipedream/sdk';
 import { ConfigurableProps } from '@pipedream/sdk';
 import { ConfiguredProps } from '@pipedream/sdk';
 import { Context } from 'react';
@@ -104,7 +105,18 @@ declare type ControlAppProps = {
     app: AppResponse;
 };
 
-export declare function ControlBoolean(): JSX_2.Element;
+export declare function ControlBoolean(props: ControlBooleanProps): JSX_2.Element;
+
+declare type ControlBooleanProps = {
+    component?: React.ComponentType<{
+        id: string;
+        checked: boolean;
+        onChange: (checked: boolean) => void;
+        required: boolean;
+        baseStyles: CSSProperties;
+        formFieldContext: FormFieldContext<ConfigurablePropBoolean>;
+    }>;
+};
 
 export declare function ControlInput(props: ControlInputProps): JSX_2.Element;
 
@@ -120,7 +132,6 @@ declare type ControlInputProps = {
         max?: number;
         required: boolean;
         autoComplete: string;
-        temp: string;
         placeholder: string;
         baseStyles: CSSProperties;
         formFieldContext: FormFieldContext<ConfigurableProp>;
@@ -183,6 +194,7 @@ export declare type CustomComponents<Option, IsMulti extends boolean, Group exte
     ControlInput: typeof ControlInput;
     ControlApp: typeof ControlApp;
     ControlSelect: typeof ControlSelect;
+    ControlBoolean: typeof ControlBoolean;
 };
 
 export declare type CustomComponentsConfig<T, U extends boolean, V extends GroupBase<T>> = Partial<CustomComponents<T, U, V>>;
@@ -266,6 +278,7 @@ export declare const defaultComponents: {
     ControlInput: typeof ControlInput;
     ControlApp: typeof ControlApp;
     ControlSelect: typeof ControlSelect;
+    ControlBoolean: typeof ControlBoolean;
 };
 
 export declare const defaultTheme: Theme;
@@ -414,6 +427,7 @@ export declare function RemoteOptionsContainer({ queryEnabled }: RemoteOptionsCo
 
 declare type RemoteOptionsContainerProps = {
     queryEnabled?: boolean;
+    component?: React.ComponentType<any>;
 };
 
 export declare function SelectApp({ value, onChange, }: SelectAppProps): JSX_2.Element;

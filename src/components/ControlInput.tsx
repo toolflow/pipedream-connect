@@ -19,7 +19,6 @@ type ControlInputProps = {
     max?: number;
     required: boolean;
     autoComplete: string;
-    temp: string;
     placeholder: string;
     baseStyles: CSSProperties;
     // Pass through the full context in case it's needed
@@ -85,7 +84,6 @@ export function ControlInput(props: ControlInputProps) {
     placeholder: "test",
     baseStyles,
     formFieldContext: formFieldContextProps,
-    temp: "temp",
   };
 
   if (props.component) {

@@ -45,6 +45,7 @@ export const defaultComponents = {
   ControlInput,
   ControlApp,
   ControlSelect,
+  ControlBoolean,
 };
 
 export type ReactSelectComponents = {
@@ -60,6 +61,7 @@ export type CustomComponents<Option, IsMulti extends boolean, Group extends Grou
   ControlInput: typeof ControlInput;
   ControlApp: typeof ControlApp;
   ControlSelect: typeof ControlSelect;
+  ControlBoolean: typeof ControlBoolean;
 };
 
 export type ComponentLibrary = typeof defaultComponents;
