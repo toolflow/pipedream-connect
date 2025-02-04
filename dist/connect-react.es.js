@@ -5890,9 +5890,7 @@ function Lp(e) {
   return /* @__PURE__ */ j("input", { id: n, type: "checkbox", ...u("controlBoolean", s, t), checked: r ?? !1, onChange: (l) => i(l.target.checked) });
 }
 function Xp(e) {
-  const t = Pn(), { id: n, onChange: r, prop: i, value: o } = t, { getProps: u, theme: s } = Le();
-  console.log("PROPS ControlInput", e);
-  const a = {
+  const t = Pn(), { id: n, onChange: r, prop: i, value: o } = t, { getProps: u, theme: s } = Le(), a = {
     color: s.colors.neutral60,
     display: "block",
     border: "1px solid",
@@ -5931,7 +5929,7 @@ function Xp(e) {
   };
   if (e.component) {
     const f = e.component;
-    return console.log(u("controlInput", a, t)), /* @__PURE__ */ j(
+    return /* @__PURE__ */ j(
       f,
       {
         ...p,
@@ -6150,13 +6148,13 @@ function ca({
     baseStyles: f.styles,
     formFieldContext: u
   };
-  return o ? (console.log("ControlSelect: Rendering CustomComponent"), /* @__PURE__ */ j(
+  return o ? /* @__PURE__ */ j(
     o,
     {
       ...w,
       ...d.getProps("controlSelect", f)
     }
-  )) : /* @__PURE__ */ j(
+  ) : /* @__PURE__ */ j(
     e ? Zp : zr,
     {
       inputId: s,
@@ -12881,7 +12879,7 @@ function ay(e) {
   );
 }
 function ly(e) {
-  e.field || console.log("props", e);
+  e.field;
   const {
     field: t,
     markdown: n
@@ -13220,11 +13218,9 @@ function my({ queryEnabled: e }) {
   );
 }
 function by(e) {
-  const { field: t, form: n } = e, { queryDisabledIdx: r } = n, { prop: i, idx: o } = t, { getComponents: u } = Le(), { ControlInput: s } = u(), { ControlApp: a } = u(), { ControlSelect: l } = u(), { ControlBoolean: c } = u();
-  console.log("Control: Retrieved ControlSelect component:", l), console.log("props", e);
-  const d = "app" in t.extra ? t.extra.app : void 0;
+  const { field: t, form: n } = e, { queryDisabledIdx: r } = n, { prop: i, idx: o } = t, { getComponents: u } = Le(), { ControlInput: s } = u(), { ControlApp: a } = u(), { ControlSelect: l } = u(), { ControlBoolean: c } = u(), d = "app" in t.extra ? t.extra.app : void 0;
   if (i.remoteOptions || i.type === "$.discord.channel")
-    return console.log("this is being rendered", i.type), /* @__PURE__ */ j(
+    return /* @__PURE__ */ j(
       my,
       {
         queryEnabled: r == null || r >= o,

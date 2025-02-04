@@ -30,7 +30,6 @@ export function ControlInput(props: ControlInputProps) {
   const formFieldContextProps = useFormFieldContext();
   const { id, onChange, prop, value } = formFieldContextProps;
   const { getProps, theme } = useCustomize();
-  console.log("PROPS ControlInput", props);
 
   const baseStyles: CSSProperties = {
     color: theme.colors.neutral60,
@@ -88,7 +87,6 @@ export function ControlInput(props: ControlInputProps) {
 
   if (props.component) {
     const CustomComponent = props.component;
-    console.log(getProps("controlInput", baseStyles, formFieldContextProps));
     return (
       <CustomComponent
         {...inputProps}

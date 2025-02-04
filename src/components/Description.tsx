@@ -17,7 +17,6 @@ export type DescriptionProps<T extends ConfigurableProps, U extends Configurable
 // eg. cannot be used in OptionalFieldButton, or they need to be set up better)
 export function Description<T extends ConfigurableProps, U extends ConfigurableProp>(props: DescriptionProps<T, U>) {
   if (!props.field) {
-    console.log("props", props);
   }
   const {
     field, markdown,

@@ -26,14 +26,10 @@ export function Control<
   const { ControlApp } = getComponents();
   const { ControlSelect } = getComponents();
   const { ControlBoolean } = getComponents();
-
-  console.log('Control: Retrieved ControlSelect component:', ControlSelect);
-  console.log('props', props);
   
   const app = "app" in field.extra ? field.extra.app : undefined;
 
   if (prop.remoteOptions || prop.type === "$.discord.channel") {
-    console.log('this is being rendered', prop.type)
     return (
       <RemoteOptionsContainer
         queryEnabled={queryDisabledIdx == null || queryDisabledIdx >= idx}

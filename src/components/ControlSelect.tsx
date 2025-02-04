@@ -172,7 +172,6 @@ export function ControlSelect<T>({
   };
 
   if (CustomComponent) {
-    console.log('ControlSelect: Rendering CustomComponent');
     return (
       <CustomComponent
         {...defaultSelectProps}
