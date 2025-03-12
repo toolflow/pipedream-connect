@@ -348,7 +348,7 @@ export const FormContextProvider = <T extends ConfigurableProps>({
     console.log('optionalPropSetEnabled:', { prop, enabled });
     
     setOptionalBooleanValues(prev => {
-      console.log('Previous boolean values:', prev);
+      
       return {
         ...prev,
         [prop.name]: enabled

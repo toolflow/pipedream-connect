@@ -41,6 +41,15 @@ export const defaultComponents = {
   Errors,
   Label,
   OptionalFieldButton,
+  OptionalFieldsContainer: ({ children, baseStyles, title, expanded, onToggle }: { children: React.ReactNode; baseStyles: CSSProperties; title: string; expanded: boolean; onToggle: () => void }) => {
+    console.log('Default OptionalFieldsContainer render:', { expanded, title, hasChildren: !!children });
+    return (
+      <div style={baseStyles}>
+        <button onClick={onToggle}>{title} {expanded ? '▼' : '▶'}</button>
+        {children}
+      </div>
+    );
+  },
   Button: LoadMoreButton,
   ControlInput,
   ControlApp,
@@ -62,6 +71,13 @@ export type CustomComponents<Option, IsMulti extends boolean, Group extends Grou
   ControlApp: typeof ControlApp;
   ControlSelect: typeof ControlSelect;
   ControlBoolean: typeof ControlBoolean;
+  OptionalFieldsContainer?: React.ComponentType<{
+    children: React.ReactNode;
+    baseStyles: CSSProperties;
+    title: string;
+    expanded: boolean;
+    onToggle: () => void;
+  }>;
 };
 
 export type ComponentLibrary = typeof defaultComponents;
@@ -89,6 +105,13 @@ export type CustomizableProps = {
   label: ComponentProps<typeof Label>;
   optionalFields: ComponentProps<typeof ComponentForm>;
   optionalFieldButton: ComponentProps<typeof OptionalFieldButton>;
+  optionalFieldsContainer: {
+    children: React.ReactNode;
+    baseStyles: CSSProperties;
+    title: string;
+    expanded: boolean;
+    onToggle: () => void;
+  };
   loadMoreButton: ComponentProps<typeof LoadMoreButton>;
 };
 

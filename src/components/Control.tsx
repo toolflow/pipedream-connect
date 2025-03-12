@@ -39,7 +39,6 @@ export function Control<
   }
   // changing
   if ("options" in prop && prop.options) {
-    console.log('Control: Rendering ControlSelect with options:', prop.options);
     let options = prop.options;
     if (typeof options[0] !== "object") {
       options = options.map((o: unknown) => ({

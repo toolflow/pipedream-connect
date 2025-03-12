@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import type {
   CSSProperties, FormEventHandler,
 } from "react";
@@ -34,7 +34,7 @@ export function InternalComponentForm() {
   const {
     getComponents, getProps, theme,
   } = useCustomize();
-  const { OptionalFieldButton } = getComponents();
+  const { OptionalFieldButton, OptionalFieldsContainer } = getComponents();
   const baseStyles: CSSProperties = {
     display: "flex",
     flexDirection: "column",
@@ -55,6 +55,8 @@ export function InternalComponentForm() {
     lineHeight: "1.375",
     margin: "0 0 0.5rem 0",
   };
+
+  const [optionalFieldsExpanded, setOptionalFieldsExpanded] = useState(false);
 
   const _onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     if (onSubmit) {
@@ -82,24 +84,45 @@ export function InternalComponentForm() {
     }
   }
 
-  // TODO improve the error boundary thing (use default Alert component maybe)
+  console.log('InternalComponentForm render:', { 
+    hasOptionalFieldsContainer: !!OptionalFieldsContainer,
+    optionalFieldsExpanded,
+    optionalPropsCount: shownProps.filter(([prop]) => prop.optional).length
+  });
+  
   return (
-    <ErrorBoundary fallback={(err) => <p style={{
-      color: "red",
-    }}>Error: {err && typeof err === "object" && "message" in err && typeof err.message === "string"
-        ? err.message
-        : "Unknown"}</p>}>
+    <ErrorBoundary fallback={(err) => (
+      <p style={{ color: "red" }}>
+        Error: {err && typeof err === "object" && "message" in err && typeof err.message === "string"
+          ? err.message
+          : "Unknown"}
+      </p>
+    )}>
       <Suspense fallback={<p>Loading form...</p>}>
         <form {...getProps("componentForm", baseStyles, formContextProps)} onSubmit={_onSubmit}>
-          {shownProps.map(([
-            prop,
-            idx,
-          ]) => {
-            if (prop.type === "alert") {
-              return <Alert key={prop.name} prop={prop} />;
-            }
-            return <InternalField key={prop.name} prop={prop} idx={idx} />;
-          })}
+          {/* Required props */}
+          {shownProps.filter(([prop]) => !prop.optional).map(([prop, idx]) => (
+            prop.type === "alert" 
+              ? <Alert key={prop.name} prop={prop} />
+              : <InternalField key={prop.name} prop={prop} idx={idx} />
+          ))}
+
+          {/* Optional props in accordion */}
+          {OptionalFieldsContainer ? (
+            <OptionalFieldsContainer
+              baseStyles={baseOptionalFieldsStyles}
+              title="Optional Fields"
+              expanded={optionalFieldsExpanded}
+              onToggle={() => setOptionalFieldsExpanded(!optionalFieldsExpanded)}
+            >
+              {optionalFieldsExpanded && shownProps
+                .filter(([prop]) => prop.optional)
+                .map(([prop, idx]) => (
+                  <InternalField key={prop.name} prop={prop} idx={idx} />
+                ))}
+            </OptionalFieldsContainer>
+          ) : null}
+
           {dynamicPropsQueryIsFetching && <p>Loading dynamic props...</p>}
           {onSubmit && <ControlSubmit form={formContext} />}
         </form>

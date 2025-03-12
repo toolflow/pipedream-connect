@@ -95,6 +95,13 @@ declare type ComponentFormProps<T extends ConfigurableProps> = {
         OptionalFieldButton?: React.ComponentType<OptionalFieldButtonProps & {
             baseStyles: CSSProperties;
         }>;
+        OptionalFieldsContainer?: React.ComponentType<{
+            children: React.ReactNode;
+            baseStyles: CSSProperties;
+            title: string;
+            expanded: boolean;
+            onToggle: () => void;
+        }>;
     };
 };
 
@@ -170,7 +177,6 @@ declare type ControlSelectProps<T> = {
         isMulti: boolean;
         isClearable: boolean;
         required: boolean;
-        test: string;
         onCreateOption?: (inputValue: string) => void;
         onChange: (value: any) => void;
         baseStyles: CSSObjectWithLabel;
@@ -201,6 +207,13 @@ export declare type CustomComponents<Option, IsMulti extends boolean, Group exte
     ControlApp: typeof ControlApp;
     ControlSelect: typeof ControlSelect;
     ControlBoolean: typeof ControlBoolean;
+    OptionalFieldsContainer?: React.ComponentType<{
+        children: React.ReactNode;
+        baseStyles: CSSProperties;
+        title: string;
+        expanded: boolean;
+        onToggle: () => void;
+    }>;
 };
 
 export declare type CustomComponentsConfig<T, U extends boolean, V extends GroupBase<T>> = Partial<CustomComponents<T, U, V>>;
@@ -222,6 +235,13 @@ export declare type CustomizableProps = {
     label: ComponentProps<typeof Label>;
     optionalFields: ComponentProps<typeof ComponentForm>;
     optionalFieldButton: ComponentProps<typeof OptionalFieldButton>;
+    optionalFieldsContainer: {
+        children: React.ReactNode;
+        baseStyles: CSSProperties;
+        title: string;
+        expanded: boolean;
+        onToggle: () => void;
+    };
     loadMoreButton: ComponentProps<typeof LoadMoreButton>;
 };
 
@@ -280,6 +300,13 @@ export declare const defaultComponents: {
     Errors: typeof Errors;
     Label: typeof Label;
     OptionalFieldButton: (props: OptionalFieldButtonProps) => JSX_2.Element;
+    OptionalFieldsContainer: ({ children, baseStyles, title, expanded, onToggle }: {
+        children: React.ReactNode;
+        baseStyles: CSSProperties;
+        title: string;
+        expanded: boolean;
+        onToggle: () => void;
+    }) => JSX_2.Element;
     Button: (props: ButtonProps) => JSX_2.Element;
     ControlInput: typeof ControlInput;
     ControlApp: typeof ControlApp;

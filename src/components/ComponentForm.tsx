@@ -24,6 +24,13 @@ export type ComponentFormProps<T extends ConfigurableProps> = {
   hideOptionalProps?: boolean;
   components?: {
     OptionalFieldButton?: React.ComponentType<OptionalFieldButtonProps & { baseStyles: CSSProperties }>;
+    OptionalFieldsContainer?: React.ComponentType<{
+      children: React.ReactNode;
+      baseStyles: CSSProperties;
+      title: string;
+      expanded: boolean;
+      onToggle: () => void;
+    }>;
   };
 };
 

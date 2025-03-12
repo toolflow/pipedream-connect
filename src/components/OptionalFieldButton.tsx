@@ -32,10 +32,9 @@ export const OptionalFieldButton = (props: OptionalFieldButtonProps) => {
     textWrap: "nowrap",
   };
 
-  console.log('OptionalFieldButton render:', { prop, enabled });
+  
 
   if (CustomComponent) {
-    console.log('Rendering CustomComponent');
     return (
       <CustomComponent
         prop={prop}
@@ -46,11 +45,6 @@ export const OptionalFieldButton = (props: OptionalFieldButtonProps) => {
       />
     );
   }
-
-  console.log('Rendering OptionalFieldButton with:', { 
-    enabled,
-    prop 
-  });
 
   return (
     <button onClick={onClick} type="button" {...getProps("optionalFieldButton", baseStyles, props)}>
