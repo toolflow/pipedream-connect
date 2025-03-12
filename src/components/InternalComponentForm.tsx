@@ -101,22 +101,6 @@ export function InternalComponentForm() {
             return <InternalField key={prop.name} prop={prop} idx={idx} />;
           })}
           {dynamicPropsQueryIsFetching && <p>Loading dynamic props...</p>}
-          {(!hideOptionalProps && optionalProps.length)
-            ? <div>
-              <div {...getProps("heading", baseHeadingStyles, formContextProps)}>Optional Props</div>
-              <div {...getProps("optionalFields", baseOptionalFieldsStyles, formContextProps)}>
-                {optionalProps.map(([prop]) => (
-                  <OptionalFieldButton
-                    key={prop.name}
-                    prop={prop}
-                    enabled={getOptionalPropValue(prop)}
-                    onClick={() => optionalPropSetEnabled(prop, !getOptionalPropValue(prop))}
-                    component={formContextProps.components?.OptionalFieldButton}
-                  />
-                ))}
-              </div>
-            </div>
-            : null}
           {onSubmit && <ControlSubmit form={formContext} />}
         </form>
       </Suspense>
