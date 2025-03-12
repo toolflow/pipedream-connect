@@ -12,6 +12,7 @@ import { Alert } from "./Alert";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { ControlSubmit } from "./ControlSubmit";
 import type { ConfigurableProp } from "@pipedream/sdk";
+import { OptionalFieldButton } from "./OptionalFieldButton";
 
 export function InternalComponentForm() {
   const formContext = useFormContext();
@@ -21,6 +22,7 @@ export function InternalComponentForm() {
     isValid,
     optionalPropIsEnabled,
     optionalPropSetEnabled,
+    getOptionalPropValue,
     props: formContextProps,
     setSubmitting,
   } = formContext;
@@ -71,28 +73,13 @@ export function InternalComponentForm() {
 
   const shownProps: [ConfigurableProp, number][] = [];
   const optionalProps: [ConfigurableProp, boolean][] = [];
-  for (let idx = 0; idx < configurableProps.length; idx++) {
-    const prop = configurableProps[idx];
-    if (prop.hidden) {
-      continue;
-    }
-    if (skippablePropTypes.includes(prop.type)) {
-      continue;
-    }
+  for (const [idx, prop] of configurableProps.entries()) {
     if (prop.optional) {
-      const enabled = optionalPropIsEnabled(prop);
-      optionalProps.push([
-        prop,
-        enabled,
-      ]);
-      if (!enabled) {
-        continue;
-      }
+      optionalProps.push([prop, optionalPropIsEnabled(prop)]);
+      shownProps.push([prop, idx]);
+    } else if (!prop.hidden) {
+      shownProps.push([prop, idx]);
     }
-    shownProps.push([
-      prop,
-      idx,
-    ]);
   }
 
   // TODO improve the error boundary thing (use default Alert component maybe)
@@ -118,15 +105,15 @@ export function InternalComponentForm() {
             ? <div>
               <div {...getProps("heading", baseHeadingStyles, formContextProps)}>Optional Props</div>
               <div {...getProps("optionalFields", baseOptionalFieldsStyles, formContextProps)}>
-                {optionalProps.map(([
-                  prop,
-                  enabled,
-                ]) => <OptionalFieldButton
-                  key={prop.name}
-                  prop={prop}
-                  enabled={enabled}
-                  onClick={() => optionalPropSetEnabled(prop, !enabled)}
-                />)}
+                {optionalProps.map(([prop]) => (
+                  <OptionalFieldButton
+                    key={prop.name}
+                    prop={prop}
+                    enabled={getOptionalPropValue(prop)}
+                    onClick={() => optionalPropSetEnabled(prop, !getOptionalPropValue(prop))}
+                    component={formContextProps.components?.OptionalFieldButton}
+                  />
+                ))}
               </div>
             </div>
             : null}

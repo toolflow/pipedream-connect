@@ -8,18 +8,23 @@ import type {
   V1Component,
 } from "@pipedream/sdk";
 import { InternalComponentForm } from "./InternalComponentForm";
+import { CSSProperties } from "react";
+import { OptionalFieldButtonProps } from "./OptionalFieldButton";
 
-export type ComponentFormProps<T extends ConfigurableProps, U = ConfiguredProps<T>> = {
+export type ComponentFormProps<T extends ConfigurableProps> = {
   userId: string;
   component: V1Component<T>;
-  configuredProps?: U; // XXX value?
+  configuredProps?: ConfiguredProps<T>;
   disableQueryDisabling?: boolean;
   // dynamicPropsId?: string // XXX need to load this initially when passed
   propNames?: string[]; // TODO PropNames<T>
   onSubmit?: (ctx: FormContext<T>) => void | Promise<void>; // if passed, we include button
-  onUpdateConfiguredProps?: (v: U) => void; // XXX onChange?
+  onUpdateConfiguredProps?: (v: ConfiguredProps<T>) => void; // XXX onChange?
   onUpdateDynamicProps?: (dp: DynamicProps<T>) => void;
   hideOptionalProps?: boolean;
+  components?: {
+    OptionalFieldButton?: React.ComponentType<OptionalFieldButtonProps & { baseStyles: CSSProperties }>;
+  };
 };
 
 export function ComponentForm<T extends ConfigurableProps>(props: ComponentFormProps<T>) {

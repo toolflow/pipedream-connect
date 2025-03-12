@@ -81,16 +81,21 @@ declare type ComponentFormContainerProps<T extends ConfigurableProps> = Omit<Com
     componentKey: string;
 };
 
-declare type ComponentFormProps<T extends ConfigurableProps, U = ConfiguredProps<T>> = {
+declare type ComponentFormProps<T extends ConfigurableProps> = {
     userId: string;
     component: V1Component<T>;
-    configuredProps?: U;
+    configuredProps?: ConfiguredProps<T>;
     disableQueryDisabling?: boolean;
     propNames?: string[];
     onSubmit?: (ctx: FormContext<T>) => void | Promise<void>;
-    onUpdateConfiguredProps?: (v: U) => void;
+    onUpdateConfiguredProps?: (v: ConfiguredProps<T>) => void;
     onUpdateDynamicProps?: (dp: DynamicProps<T>) => void;
     hideOptionalProps?: boolean;
+    components?: {
+        OptionalFieldButton?: React.ComponentType<OptionalFieldButtonProps & {
+            baseStyles: CSSProperties;
+        }>;
+    };
 };
 
 export declare type ComponentLibrary = typeof defaultComponents;
@@ -326,7 +331,7 @@ declare type FieldProps<T extends ConfigurableProp> = {
     field: FormFieldContext<T>;
 };
 
-export declare type FormContext<T extends ConfigurableProps> = {
+export declare type FormContext<T extends ConfigurableProps = ConfigurableProps> = {
     component: V1Component<T>;
     configurableProps: T;
     configuredProps: ConfiguredProps<T>;
@@ -338,6 +343,7 @@ export declare type FormContext<T extends ConfigurableProps> = {
     isValid: boolean;
     optionalPropIsEnabled: (prop: ConfigurableProp) => boolean;
     optionalPropSetEnabled: (prop: ConfigurableProp, enabled: boolean) => void;
+    getOptionalPropValue: (prop: ConfigurableProp) => boolean;
     props: ComponentFormProps<T>;
     propsNeedConfiguring: string[];
     queryDisabledIdx?: number;
@@ -404,6 +410,9 @@ declare type OptionalFieldButtonProps = {
     prop: ConfigurableProp;
     enabled: boolean;
     onClick: () => void;
+    component?: React.ComponentType<OptionalFieldButtonProps & {
+        baseStyles: CSSProperties;
+    }>;
 };
 
 export declare type PartialTheme = {

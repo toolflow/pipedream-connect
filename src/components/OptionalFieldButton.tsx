@@ -6,11 +6,12 @@ export type OptionalFieldButtonProps = {
   prop: ConfigurableProp;
   enabled: boolean;
   onClick: () => void;
+  component?: React.ComponentType<OptionalFieldButtonProps & { baseStyles: CSSProperties }>;
 };
 
 export const OptionalFieldButton = (props: OptionalFieldButtonProps) => {
   const {
-    prop, enabled, onClick,
+    prop, enabled, onClick, component: CustomComponent,
   } = props;
   const {
     getProps, theme,
@@ -30,11 +31,30 @@ export const OptionalFieldButton = (props: OptionalFieldButtonProps) => {
     gap: theme.spacing.baseUnit * 2,
     textWrap: "nowrap",
   };
+
+  console.log('OptionalFieldButton render:', { prop, enabled });
+
+  if (CustomComponent) {
+    console.log('Rendering CustomComponent');
+    return (
+      <CustomComponent
+        prop={prop}
+        enabled={enabled}
+        onClick={onClick}
+        baseStyles={baseStyles}
+        {...getProps("optionalFieldButton", baseStyles, props)}
+      />
+    );
+  }
+
+  console.log('Rendering OptionalFieldButton with:', { 
+    enabled,
+    prop 
+  });
+
   return (
     <button onClick={onClick} type="button" {...getProps("optionalFieldButton", baseStyles, props)}>
-      <span>{enabled
-        ? "-"
-        : "+"}</span>
+      <span>{enabled ? "-" : "+"}</span>
       <span style={{
         marginRight: 8,
       }}>{prop.label || prop.name}</span>

@@ -13,10 +13,11 @@ import {
   appPropErrors, arrayPropErrors, booleanPropErrors, integerPropErrors,
   stringPropErrors,
 } from "../utils/component";
+import _ from "lodash";
 
 export type DynamicProps<T extends ConfigurableProps> = { id: string; configurableProps: T; }; // TODO
 
-export type FormContext<T extends ConfigurableProps> = {
+export type FormContext<T extends ConfigurableProps = ConfigurableProps> = {
   component: V1Component<T>;
   configurableProps: T; // dynamicProps.configurableProps || props.component.configurable_props
   configuredProps: ConfiguredProps<T>;
@@ -28,6 +29,7 @@ export type FormContext<T extends ConfigurableProps> = {
   isValid: boolean;
   optionalPropIsEnabled: (prop: ConfigurableProp) => boolean;
   optionalPropSetEnabled: (prop: ConfigurableProp, enabled: boolean) => void;
+  getOptionalPropValue: (prop: ConfigurableProp) => boolean;
   props: ComponentFormProps<T>;
   propsNeedConfiguring: string[];
   queryDisabledIdx?: number;
@@ -255,6 +257,15 @@ export const FormContextProvider = <T extends ConfigurableProps>({
   };
 
   useEffect(() => {
+    // Initialize queryDisabledIdx on load so that we don't force users
+    // to reconfigure a prop they've already configured whenever the page
+    // or component is reloaded
+    updateConfiguredPropsQueryDisabledIdx(_configuredProps)
+  }, [
+    _configuredProps,
+  ]);
+
+  useEffect(() => {
     const newConfiguredProps: ConfiguredProps<T> = {};
     for (const prop of configurableProps) {
       if (prop.hidden) {
@@ -331,27 +342,28 @@ export const FormContextProvider = <T extends ConfigurableProps>({
     setErrors(newErrors);
   };
 
+  const [optionalBooleanValues, setOptionalBooleanValues] = useState<Record<string, boolean>>({});
+
   const optionalPropSetEnabled = (prop: ConfigurableProp, enabled: boolean) => {
-    const newEnabledOptionalProps = {
-      ...enabledOptionalProps,
-    };
-    if (enabled) {
-      newEnabledOptionalProps[prop.name] = true;
-    } else {
-      delete newEnabledOptionalProps[prop.name];
-    }
+    console.log('optionalPropSetEnabled:', { prop, enabled });
+    
+    setOptionalBooleanValues(prev => {
+      console.log('Previous boolean values:', prev);
+      return {
+        ...prev,
+        [prop.name]: enabled
+      };
+    });
+
     const idx = configurableProps.findIndex((p) => p.name === prop.name);
-    if (!enabled) {
-      setConfiguredProp(idx, undefined);
-    } else if (__configuredProps?.[prop.name as keyof ConfiguredProps<T>] !== undefined) {
-      setConfiguredProp(
-        idx,
-        __configuredProps[prop.name as keyof ConfiguredProps<T>],
-      );
-    } else if ("default" in prop && prop.default != null) {
-      setConfiguredProp(idx, prop.default);
-    }
-    setEnabledOptionalProps(newEnabledOptionalProps);
+    console.log('Setting configured prop:', { idx, enabled });
+    setConfiguredProp(idx, enabled);
+  };
+
+  const getOptionalPropValue = (prop: ConfigurableProp) => {
+    const value = optionalBooleanValues[prop.name] ?? false;
+    console.log('getOptionalPropValue:', { prop, value });
+    return value;
   };
 
   const checkPropsNeedConfiguring = () => {
@@ -364,6 +376,8 @@ export const FormContextProvider = <T extends ConfigurableProps>({
         _propsNeedConfiguring.push(prop.name)
       }
     }
+
+    if (_propsNeedConfiguring && propsNeedConfiguring && _.isEqual(_propsNeedConfiguring, propsNeedConfiguring)) return;
     // propsNeedConfiguring.splice(0, propsNeedConfiguring.length, ..._propsNeedConfiguring)
     setPropsNeedConfiguring(_propsNeedConfiguring)
   }
@@ -373,6 +387,7 @@ export const FormContextProvider = <T extends ConfigurableProps>({
       fields[field.prop.name] = field
       return fields
     });
+    checkPropsNeedConfiguring()
   };
 
   // console.log("***", configurableProps, configuredProps)
@@ -390,6 +405,7 @@ export const FormContextProvider = <T extends ConfigurableProps>({
     fields,
     optionalPropIsEnabled,
     optionalPropSetEnabled,
+    getOptionalPropValue,
     propsNeedConfiguring,
     queryDisabledIdx,
     registerField,

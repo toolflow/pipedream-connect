@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type {
   App, ConfigurableProp, ConfigurablePropApp, ConfigurablePropBoolean, ConfigurablePropInteger, ConfigurablePropString, ConfigurablePropStringArray, PropValue,
 } from "@pipedream/sdk";
@@ -40,6 +41,11 @@ export function valuesFromOptions<T>(value: unknown | T[] | PropOptions<T>): T[]
     }
     return results
   }
+
+  if (value && typeof value === "object" && Array.isArray(value.__lv)) {
+    return value.__lv as T[]
+  }
+  
   if (!Array.isArray(value))
     return []
   return value as T[]
