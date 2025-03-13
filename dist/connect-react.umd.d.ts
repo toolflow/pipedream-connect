@@ -177,6 +177,7 @@ declare type ControlSelectProps<T> = {
         isMulti: boolean;
         isClearable: boolean;
         required: boolean;
+        test: string;
         onCreateOption?: (inputValue: string) => void;
         onChange: (value: any) => void;
         baseStyles: CSSObjectWithLabel;
