@@ -345,7 +345,6 @@ export const FormContextProvider = <T extends ConfigurableProps>({
   const [optionalBooleanValues, setOptionalBooleanValues] = useState<Record<string, boolean>>({});
 
   const optionalPropSetEnabled = (prop: ConfigurableProp, enabled: boolean) => {
-    console.log('optionalPropSetEnabled:', { prop, enabled });
     
     setOptionalBooleanValues(prev => {
       
@@ -356,13 +355,11 @@ export const FormContextProvider = <T extends ConfigurableProps>({
     });
 
     const idx = configurableProps.findIndex((p) => p.name === prop.name);
-    console.log('Setting configured prop:', { idx, enabled });
     setConfiguredProp(idx, enabled);
   };
 
   const getOptionalPropValue = (prop: ConfigurableProp) => {
     const value = optionalBooleanValues[prop.name] ?? false;
-    console.log('getOptionalPropValue:', { prop, value });
     return value;
   };
 

@@ -42,7 +42,6 @@ export const defaultComponents = {
   Label,
   OptionalFieldButton,
   OptionalFieldsContainer: ({ children, baseStyles, title, expanded, onToggle }: { children: React.ReactNode; baseStyles: CSSProperties; title: string; expanded: boolean; onToggle: () => void }) => {
-    console.log('Default OptionalFieldsContainer render:', { expanded, title, hasChildren: !!children });
     return (
       <div style={baseStyles}>
         <button onClick={onToggle}>{title} {expanded ? '▼' : '▶'}</button>

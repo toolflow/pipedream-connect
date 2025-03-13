@@ -84,12 +84,7 @@ export function InternalComponentForm() {
     }
   }
 
-  console.log('InternalComponentForm render:', { 
-    hasOptionalFieldsContainer: !!OptionalFieldsContainer,
-    optionalFieldsExpanded,
-    optionalPropsCount: shownProps.filter(([prop]) => prop.optional).length
-  });
-  
+ 
   return (
     <ErrorBoundary fallback={(err) => (
       <p style={{ color: "red" }}>
