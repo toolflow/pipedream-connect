@@ -34,7 +34,7 @@ export function InternalComponentForm() {
   const {
     getComponents, getProps, theme,
   } = useCustomize();
-  const { OptionalFieldButton, OptionalFieldsContainer } = getComponents();
+  const { OptionalFieldButton, OptionalFieldsContainer, Alert: CustomAlert } = getComponents();
   const baseStyles: CSSProperties = {
     display: "flex",
     flexDirection: "column",
@@ -96,11 +96,12 @@ export function InternalComponentForm() {
       <Suspense fallback={<p>Loading form...</p>}>
         <form {...getProps("componentForm", baseStyles, formContextProps)} onSubmit={_onSubmit}>
           {/* Required props */}
-          {shownProps.filter(([prop]) => !prop.optional).map(([prop, idx]) => (
-            prop.type === "alert" 
-              ? <Alert key={prop.name} prop={prop} />
-              : <InternalField key={prop.name} prop={prop} idx={idx} />
-          ))}
+          {shownProps.filter(([prop]) => !prop.optional).map(([prop, idx]) => {
+            if (prop.type === "alert") {
+              return <CustomAlert key={prop.name} prop={prop} />;
+            }
+            return <InternalField key={prop.name} prop={prop} idx={idx} />;
+          })}
 
           {/* Optional props in accordion */}
           {OptionalFieldsContainer ? (

@@ -15,7 +15,7 @@ import type {
   StylesConfig as ReactSelectStylesConfig,
   Theme as ReactSelectTheme,
 } from "react-select";
-import type { ConfigurableProp } from "@pipedream/sdk";
+import type { ConfigurableProp, ConfigurablePropAlert } from "@pipedream/sdk";
 import {
   defaultTheme, getReactSelectTheme, mergeTheme, unstyledTheme, type CustomThemeConfig, type Theme,
 } from "../theme";
@@ -34,9 +34,11 @@ import { Field } from "../components/Field";
 import { Label } from "../components/Label";
 import { OptionalFieldButton } from "../components/OptionalFieldButton";
 import { LoadMoreButton } from "../components/LoadMoreButton";
+import { Alert } from "../components/Alert";
 
 
 export const defaultComponents = {
+  Alert,
   Description,
   Errors,
   Label,
@@ -77,6 +79,10 @@ export type CustomComponents<Option, IsMulti extends boolean, Group extends Grou
     expanded: boolean;
     onToggle: () => void;
   }>;
+  Alert?: React.ComponentType<{
+    prop: ConfigurablePropAlert;
+    baseStyles: CSSProperties;
+  }>;
 };
 
 export type ComponentLibrary = typeof defaultComponents;
@@ -112,6 +118,10 @@ export type CustomizableProps = {
     onToggle: () => void;
   };
   loadMoreButton: ComponentProps<typeof LoadMoreButton>;
+  alert: {
+    prop: ConfigurablePropAlert;
+    baseStyles: CSSProperties;
+  };
 };
 
 export type CustomClassNamesFn<K extends keyof CustomizableProps> = ((opts: CustomizationOpts<CustomizableProps[K]>) => string);

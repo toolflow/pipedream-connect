@@ -38,10 +38,14 @@ import { Theme as Theme_2 } from 'react-select';
 import { UseQueryOptions } from '@tanstack/react-query';
 import { V1Component } from '@pipedream/sdk';
 
-export declare function Alert({ prop }: AlertProps): JSX_2.Element;
+export declare function Alert({ prop, component: CustomComponent }: AlertProps): JSX_2.Element;
 
 declare type AlertProps = {
     prop: ConfigurablePropAlert;
+    component?: React.ComponentType<{
+        prop: ConfigurablePropAlert;
+        baseStyles: CSSProperties;
+    }>;
 };
 
 export declare type BaseReactSelectProps<Option, IsMulti extends boolean, Group extends GroupBase<Option>> = {
@@ -215,6 +219,10 @@ export declare type CustomComponents<Option, IsMulti extends boolean, Group exte
         expanded: boolean;
         onToggle: () => void;
     }>;
+    Alert?: React.ComponentType<{
+        prop: ConfigurablePropAlert;
+        baseStyles: CSSProperties;
+    }>;
 };
 
 export declare type CustomComponentsConfig<T, U extends boolean, V extends GroupBase<T>> = Partial<CustomComponents<T, U, V>>;
@@ -244,6 +252,10 @@ export declare type CustomizableProps = {
         onToggle: () => void;
     };
     loadMoreButton: ComponentProps<typeof LoadMoreButton>;
+    alert: {
+        prop: ConfigurablePropAlert;
+        baseStyles: CSSProperties;
+    };
 };
 
 export declare type Customization = {
@@ -297,6 +309,7 @@ export declare type CustomStylesFn<K extends keyof CustomizableProps> = ((baseSt
 export declare type CustomThemeConfig = PartialTheme | ((theme: Theme) => PartialTheme);
 
 export declare const defaultComponents: {
+    Alert: typeof Alert;
     Description: typeof Description;
     Errors: typeof Errors;
     Label: typeof Label;
