@@ -17165,7 +17165,7 @@ function cR() {
         children: L && G.filter(([N]) => N.optional).map(([N, V]) => /* @__PURE__ */ le(sh, { prop: N, idx: V }, N.name))
       }
     ) : null,
-    r && /* @__PURE__ */ le("p", { children: "Loading dynamic props..." }),
+    r && /* @__PURE__ */ le("p", { children: "Loading dynamic properties" }),
     h && /* @__PURE__ */ le(lR, { form: e })
   ] }) }) });
 }

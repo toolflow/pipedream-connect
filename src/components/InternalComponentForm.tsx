@@ -119,7 +119,7 @@ export function InternalComponentForm() {
             </OptionalFieldsContainer>
           ) : null}
 
-          {dynamicPropsQueryIsFetching && <p>Loading dynamic props...</p>}
+          {dynamicPropsQueryIsFetching && <p>Loading dynamic properties</p>}
           {onSubmit && <ControlSubmit form={formContext} />}
         </form>
       </Suspense>
