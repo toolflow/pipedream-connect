@@ -95,6 +95,11 @@ declare type ComponentFormProps<T extends ConfigurableProps> = {
     onUpdateConfiguredProps?: (v: ConfiguredProps<T>) => void;
     onUpdateDynamicProps?: (dp: DynamicProps<T>) => void;
     hideOptionalProps?: boolean;
+    overrideProps?: {
+        [appName: string]: {
+            [propName: string]: any;
+        };
+    };
     components?: {
         OptionalFieldButton?: React.ComponentType<OptionalFieldButtonProps & {
             baseStyles: CSSProperties;
@@ -321,6 +326,7 @@ export declare const defaultComponents: {
         expanded: boolean;
         onToggle: () => void;
     }) => JSX_2.Element;
+    OverrideField: ({ prop, value, appName }: OverrideProps) => JSX_2.Element;
     Button: (props: ButtonProps) => JSX_2.Element;
     ControlInput: typeof ControlInput;
     ControlApp: typeof ControlApp;
@@ -394,6 +400,11 @@ export declare type FormContext<T extends ConfigurableProps = ConfigurableProps>
     setSubmitting: (submitting: boolean) => void;
     submitting: boolean;
     userId: string;
+    overrideProps?: {
+        [appName: string]: {
+            [propName: string]: any;
+        };
+    };
 };
 
 export declare const FormContext: Context<FormContext<any> | undefined>;
@@ -455,6 +466,12 @@ declare type OptionalFieldButtonProps = {
     component?: React.ComponentType<OptionalFieldButtonProps & {
         baseStyles: CSSProperties;
     }>;
+};
+
+declare type OverrideProps = {
+    prop: ConfigurableProp;
+    value: any;
+    appName: string;
 };
 
 export declare type PartialTheme = {

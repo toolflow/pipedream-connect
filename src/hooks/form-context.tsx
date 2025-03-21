@@ -38,6 +38,11 @@ export type FormContext<T extends ConfigurableProps = ConfigurableProps> = {
   setSubmitting: (submitting: boolean) => void;
   submitting: boolean;
   userId: string;
+  overrideProps?: {
+    [appName: string]: {
+      [propName: string]: any;
+    };
+  };
 };
 
 export const skippablePropTypes = [
@@ -391,7 +396,10 @@ export const FormContextProvider = <T extends ConfigurableProps>({
   const value: FormContext<T> = {
     id,
     isValid: !Object.keys(errors).length, // XXX want to expose more from errors
-    props: formProps,
+    props: {
+      ...formProps,
+      overrideProps: formProps.overrideProps,
+    },
     userId,
     component,
     configurableProps,

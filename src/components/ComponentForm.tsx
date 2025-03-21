@@ -22,6 +22,11 @@ export type ComponentFormProps<T extends ConfigurableProps> = {
   onUpdateConfiguredProps?: (v: ConfiguredProps<T>) => void; // XXX onChange?
   onUpdateDynamicProps?: (dp: DynamicProps<T>) => void;
   hideOptionalProps?: boolean;
+  overrideProps?: {
+    [appName: string]: {
+      [propName: string]: any;
+    };
+  };
   components?: {
     OptionalFieldButton?: React.ComponentType<OptionalFieldButtonProps & { baseStyles: CSSProperties }>;
     OptionalFieldsContainer?: React.ComponentType<{

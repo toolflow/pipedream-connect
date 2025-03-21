@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect, useRef } from "react";
 import type {
   CSSProperties, FormEventHandler,
 } from "react";
@@ -25,16 +25,17 @@ export function InternalComponentForm() {
     getOptionalPropValue,
     props: formContextProps,
     setSubmitting,
+    setConfiguredProp,
   } = formContext;
 
   const {
-    hideOptionalProps, onSubmit,
+    hideOptionalProps, onSubmit, overrideProps,
   } = formContextProps;
 
   const {
     getComponents, getProps, theme,
   } = useCustomize();
-  const { OptionalFieldButton, OptionalFieldsContainer, Alert: CustomAlert } = getComponents();
+  const { OptionalFieldButton, OptionalFieldsContainer, Alert: CustomAlert, OverrideField } = getComponents();
   const baseStyles: CSSProperties = {
     display: "flex",
     flexDirection: "column",
@@ -58,6 +59,25 @@ export function InternalComponentForm() {
 
   const [optionalFieldsExpanded, setOptionalFieldsExpanded] = useState(false);
 
+  // Get the current app from configurableProps
+  const appProp = configurableProps.find((prop: ConfigurableProp) => prop.type === "app");
+  const currentApp = appProp?.app;
+
+  const overridesSetRef = useRef(false);
+
+  useEffect(() => {
+    if (!overridesSetRef.current && overrideProps && currentApp && overrideProps[currentApp]) {
+      const appOverrides = overrideProps[currentApp];
+      Object.entries(appOverrides).forEach(([propName, value]) => {
+        const propIndex = configurableProps.findIndex((p: ConfigurableProp) => p.name === propName);
+        if (propIndex !== -1) {
+          setConfiguredProp(propIndex, value);
+        }
+      });
+      overridesSetRef.current = true;
+    }
+  }, [currentApp, overrideProps, configurableProps, setConfiguredProp]);
+
   const _onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     if (onSubmit) {
       e.preventDefault();
@@ -75,7 +95,16 @@ export function InternalComponentForm() {
 
   const shownProps: [ConfigurableProp, number][] = [];
   const optionalProps: [ConfigurableProp, boolean][] = [];
+  
   for (const [idx, prop] of configurableProps.entries()) {
+    // Skip props that are overridden
+    const shouldHide = currentApp && 
+      overrideProps?.[currentApp]?.[prop.name] !== undefined;
+
+    if (shouldHide) {
+      continue;
+    }
+
     if (prop.optional) {
       optionalProps.push([prop, optionalPropIsEnabled(prop)]);
       shownProps.push([prop, idx]);
@@ -84,7 +113,6 @@ export function InternalComponentForm() {
     }
   }
 
- 
   return (
     <ErrorBoundary fallback={(err) => (
       <p style={{ color: "red" }}>
@@ -121,6 +149,14 @@ export function InternalComponentForm() {
 
           {dynamicPropsQueryIsFetching && <p>Loading dynamic properties</p>}
           {onSubmit && <ControlSubmit form={formContext} />}
+
+          {currentApp && overrideProps?.[currentApp] && Object.entries(overrideProps[currentApp]).map(([propName, value]) => {
+            const prop = configurableProps.find((p: ConfigurableProp) => p.name === propName);
+            if (prop) {
+              return <OverrideField key={propName} prop={prop} value={value} appName={currentApp} />;
+            }
+            return null;
+          })}
         </form>
       </Suspense>
     </ErrorBoundary>

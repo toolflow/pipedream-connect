@@ -9,6 +9,12 @@ export type OptionalFieldButtonProps = {
   component?: React.ComponentType<OptionalFieldButtonProps & { baseStyles: CSSProperties }>;
 };
 
+export type OverrideProps = {
+  prop: ConfigurableProp;
+  value: any;
+  appName: string;
+};
+
 export const OptionalFieldButton = (props: OptionalFieldButtonProps) => {
   const {
     prop, enabled, onClick, component: CustomComponent,

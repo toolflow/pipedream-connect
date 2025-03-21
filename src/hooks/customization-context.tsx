@@ -32,7 +32,7 @@ import { Description } from "../components/Description";
 import { Errors } from "../components/Errors";
 import { Field } from "../components/Field";
 import { Label } from "../components/Label";
-import { OptionalFieldButton } from "../components/OptionalFieldButton";
+import { OptionalFieldButton, OverrideProps } from "../components/OptionalFieldButton";
 import { LoadMoreButton } from "../components/LoadMoreButton";
 import { Alert } from "../components/Alert";
 
@@ -44,10 +44,12 @@ export const defaultComponents = {
   Label,
   OptionalFieldButton,
   OptionalFieldsContainer: ({ children, baseStyles, title, expanded, onToggle }: { children: React.ReactNode; baseStyles: CSSProperties; title: string; expanded: boolean; onToggle: () => void }) => {
+    return <></>
+  },
+  OverrideField: ({ prop, value, appName }: OverrideProps) => {
     return (
-      <div style={baseStyles}>
-        <button onClick={onToggle}>{title} {expanded ? '▼' : '▶'}</button>
-        {children}
+      <div>
+        {prop.name}: {value} (Overridden by {appName})
       </div>
     );
   },
