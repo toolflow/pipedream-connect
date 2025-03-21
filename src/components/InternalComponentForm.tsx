@@ -66,17 +66,33 @@ export function InternalComponentForm() {
   const overridesSetRef = useRef(false);
 
   useEffect(() => {
+ 
+
     if (!overridesSetRef.current && overrideProps && currentApp && overrideProps[currentApp]) {
       const appOverrides = overrideProps[currentApp];
-      Object.entries(appOverrides).forEach(([propName, value]) => {
+
+      const overridesToSet = Object.entries(appOverrides).map(([propName, value]) => {
         const propIndex = configurableProps.findIndex((p: ConfigurableProp) => p.name === propName);
-        if (propIndex !== -1) {
-          setConfiguredProp(propIndex, value);
-        }
-      });
+        return { propName, propIndex, value };
+      }).filter(({ propIndex }) => propIndex !== -1);
+
+
+      const updates = overridesToSet.reduce((acc, { propName, value }) => {
+        acc[propName] = value;
+        return acc;
+      }, {} as Record<string, any>);
+
+      if (formContextProps.onUpdateConfiguredProps) {
+        const newConfiguredProps = {
+          ...formContext.configuredProps,
+          ...updates
+        };
+        formContextProps.onUpdateConfiguredProps(newConfiguredProps);
+      }
+      
       overridesSetRef.current = true;
     }
-  }, [currentApp, overrideProps, configurableProps, setConfiguredProp]);
+  }, [currentApp, overrideProps, configurableProps]);
 
   const _onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     if (onSubmit) {

@@ -47,11 +47,7 @@ export const defaultComponents = {
     return <></>
   },
   OverrideField: ({ prop, value, appName }: OverrideProps) => {
-    return (
-      <div>
-        {prop.name}: {value} (Overridden by {appName})
-      </div>
-    );
+    return <></>
   },
   Button: LoadMoreButton,
   ControlInput,
