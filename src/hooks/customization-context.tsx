@@ -35,6 +35,7 @@ import { Label } from "../components/Label";
 import { OptionalFieldButton, OverrideProps } from "../components/OptionalFieldButton";
 import { LoadMoreButton } from "../components/LoadMoreButton";
 import { Alert } from "../components/Alert";
+import { ControlObject } from "../components/ControlObject";
 
 
 export const defaultComponents = {
@@ -43,6 +44,7 @@ export const defaultComponents = {
   Errors,
   Label,
   OptionalFieldButton,
+  ControlObject,
   OptionalFieldsContainer: ({ children, baseStyles, title, expanded, onToggle }: { children: React.ReactNode; baseStyles: CSSProperties; title: string; expanded: boolean; onToggle: () => void }) => {
     return <></>
   },
@@ -70,6 +72,7 @@ export type CustomComponents<Option, IsMulti extends boolean, Group extends Grou
   ControlApp: typeof ControlApp;
   ControlSelect: typeof ControlSelect;
   ControlBoolean: typeof ControlBoolean;
+  ControlObject: typeof ControlObject;
   OptionalFieldsContainer?: React.ComponentType<{
     children: React.ReactNode;
     baseStyles: CSSProperties;
@@ -99,6 +102,7 @@ export type CustomizableProps = {
   controlSelect: ComponentProps<typeof ControlSelect> & FormFieldContext<ConfigurableProp>;
   controlBoolean: ComponentProps<typeof ControlBoolean> & FormFieldContext<ConfigurableProp>;
   controlInput: ComponentProps<typeof ControlInput> & FormFieldContext<ConfigurableProp>;
+  controlObject: ComponentProps<typeof ControlObject> & FormFieldContext<ConfigurableProp>;
   controlSubmit: ComponentProps<typeof ControlSubmit>;
   description: ComponentProps<typeof Description>;
   error: ComponentProps<typeof Errors>;
