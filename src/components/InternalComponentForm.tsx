@@ -148,7 +148,7 @@ export function InternalComponentForm() {
           })}
 
           {/* Optional props in accordion */}
-          {OptionalFieldsContainer ? (
+          {!!OptionalFieldsContainer && shownProps.some(([prop]) => prop.optional) ? (
             <OptionalFieldsContainer
               baseStyles={baseOptionalFieldsStyles}
               title="Optional Fields"
