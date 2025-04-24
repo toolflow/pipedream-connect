@@ -26,7 +26,8 @@ export function Control<
   const { ControlApp } = getComponents();
   const { ControlSelect } = getComponents();
   const { ControlBoolean } = getComponents();
-  
+  const { ControlObject } = getComponents();
+
   const app = "app" in field.extra ? field.extra.app : undefined;
 
   if (prop.remoteOptions || prop.type === "$.discord.channel") {
@@ -95,6 +96,8 @@ export function Control<
     case "integer":
       // XXX split into ControlString, ControlInteger, etc? but want to share autoComplet="off", etc functionality in base one
       return <ControlInput />;
+    case "object":
+      return <ControlObject />;
     default:
       // TODO "not supported prop type should bubble up"
       throw new Error("Unsupported property type: " + prop.type);

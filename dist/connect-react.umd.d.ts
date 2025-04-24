@@ -159,6 +159,16 @@ declare type ControlInputProps = {
     }>;
 };
 
+declare function ControlObject(props: ControlObjectProps): JSX_2.Element;
+
+declare type ControlObjectProps = {
+    component?: React.ComponentType<{
+        id: string;
+        name: string;
+        value: string;
+    }>;
+};
+
 declare type ControlProps<T extends ConfigurableProps, U extends ConfigurableProp> = {
     field: FormFieldContext<U>;
     form: FormContext<T>;
@@ -217,6 +227,7 @@ export declare type CustomComponents<Option, IsMulti extends boolean, Group exte
     ControlApp: typeof ControlApp;
     ControlSelect: typeof ControlSelect;
     ControlBoolean: typeof ControlBoolean;
+    ControlObject: typeof ControlObject;
     OptionalFieldsContainer?: React.ComponentType<{
         children: React.ReactNode;
         baseStyles: CSSProperties;
@@ -240,6 +251,7 @@ export declare type CustomizableProps = {
     controlSelect: ComponentProps<typeof ControlSelect> & FormFieldContext<ConfigurableProp>;
     controlBoolean: ComponentProps<typeof ControlBoolean> & FormFieldContext<ConfigurableProp>;
     controlInput: ComponentProps<typeof ControlInput> & FormFieldContext<ConfigurableProp>;
+    controlObject: ComponentProps<typeof ControlObject> & FormFieldContext<ConfigurableProp>;
     controlSubmit: ComponentProps<typeof ControlSubmit>;
     description: ComponentProps<typeof Description>;
     error: ComponentProps<typeof Errors>;
@@ -319,6 +331,7 @@ export declare const defaultComponents: {
     Errors: typeof Errors;
     Label: typeof Label;
     OptionalFieldButton: (props: OptionalFieldButtonProps) => JSX_2.Element;
+    ControlObject: typeof ControlObject;
     OptionalFieldsContainer: ({ children, baseStyles, title, expanded, onToggle }: {
         children: React.ReactNode;
         baseStyles: CSSProperties;
