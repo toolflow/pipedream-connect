@@ -35,7 +35,7 @@ export function InternalComponentForm() {
   const {
     getComponents, getProps, theme,
   } = useCustomize();
-  const { OptionalFieldButton, OptionalFieldsContainer, Alert: CustomAlert, OverrideField } = getComponents();
+  const { OptionalFieldButton, LoaderComponent, DynamicLoaderComponent, OptionalFieldsContainer, Alert: CustomAlert, OverrideField } = getComponents();
   const baseStyles: CSSProperties = {
     display: "flex",
     flexDirection: "column",
@@ -137,7 +137,7 @@ export function InternalComponentForm() {
           : "Unknown"}
       </p>
     )}>
-      <Suspense fallback={<p>Loading form...</p>}>
+      <Suspense fallback={<LoaderComponent />}>
         <form {...getProps("componentForm", baseStyles, formContextProps)} onSubmit={_onSubmit}>
           {/* Required props */}
           {shownProps.filter(([prop]) => !prop.optional).map(([prop, idx]) => {
@@ -163,7 +163,7 @@ export function InternalComponentForm() {
             </OptionalFieldsContainer>
           ) : null}
 
-          {dynamicPropsQueryIsFetching && <p>Loading dynamic properties</p>}
+          {dynamicPropsQueryIsFetching && <DynamicLoaderComponent />}
           {onSubmit && <ControlSubmit form={formContext} />}
 
           {currentApp && overrideProps?.[currentApp] && Object.entries(overrideProps[currentApp]).map(([propName, value]) => {
