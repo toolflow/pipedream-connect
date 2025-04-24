@@ -36,6 +36,7 @@ import { OptionalFieldButton, OverrideProps } from "../components/OptionalFieldB
 import { LoadMoreButton } from "../components/LoadMoreButton";
 import { Alert } from "../components/Alert";
 import { ControlObject } from "../components/ControlObject";
+import { LoaderComponent, DynamicLoaderComponent } from "../components/LoaderComponent";
 
 
 export const defaultComponents = {
@@ -56,6 +57,8 @@ export const defaultComponents = {
   ControlApp,
   ControlSelect,
   ControlBoolean,
+  LoaderComponent,
+  DynamicLoaderComponent,
 };
 
 export type ReactSelectComponents = {
@@ -73,6 +76,8 @@ export type CustomComponents<Option, IsMulti extends boolean, Group extends Grou
   ControlSelect: typeof ControlSelect;
   ControlBoolean: typeof ControlBoolean;
   ControlObject: typeof ControlObject;
+  LoaderComponent: typeof LoaderComponent;
+  DynamicLoaderComponent: typeof DynamicLoaderComponent;
   OptionalFieldsContainer?: React.ComponentType<{
     children: React.ReactNode;
     baseStyles: CSSProperties;
@@ -103,6 +108,8 @@ export type CustomizableProps = {
   controlBoolean: ComponentProps<typeof ControlBoolean> & FormFieldContext<ConfigurableProp>;
   controlInput: ComponentProps<typeof ControlInput> & FormFieldContext<ConfigurableProp>;
   controlObject: ComponentProps<typeof ControlObject> & FormFieldContext<ConfigurableProp>;
+  loaderComponent: ComponentProps<typeof LoaderComponent>;
+  dynamicLoaderComponent: ComponentProps<typeof DynamicLoaderComponent>;
   controlSubmit: ComponentProps<typeof ControlSubmit>;
   description: ComponentProps<typeof Description>;
   error: ComponentProps<typeof Errors>;
