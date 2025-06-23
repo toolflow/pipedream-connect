@@ -27,6 +27,7 @@ export function Control<
   const { ControlSelect } = getComponents();
   const { ControlBoolean } = getComponents();
   const { ControlObject } = getComponents();
+  const { ControlHttpRequest } = getComponents();
 
   const app = "app" in field.extra ? field.extra.app : undefined;
 
@@ -76,13 +77,15 @@ export function Control<
         selectProps={{
           components: {
             IndicatorSeparator: () => null,
-          }
+          },
         }}
       />
     );
   }
 
-  switch (prop.type) {
+  switch (
+    prop.type as string // this is a hack to get the http_request type to work. Pipedream SDK doesn't yet support it natively.
+  ) {
     // problem with this is that it should be the JSON value, but if it is at any point
     // not a valid json value, it should just be the string so the value is not lost... so it's just very odd
     // without a more stringent JSON builder type component
@@ -98,6 +101,8 @@ export function Control<
       return <ControlInput />;
     case "object":
       return <ControlObject />;
+    case "http_request":
+      return <ControlHttpRequest />;
     default:
       // TODO "not supported prop type should bubble up"
       throw new Error("Unsupported property type: " + prop.type);

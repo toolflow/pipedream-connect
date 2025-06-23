@@ -37,6 +37,7 @@ import { LoadMoreButton } from "../components/LoadMoreButton";
 import { Alert } from "../components/Alert";
 import { ControlObject } from "../components/ControlObject";
 import { LoaderComponent, DynamicLoaderComponent } from "../components/LoaderComponent";
+import { ControlHttpRequest } from "../components/ControlHttpRequest";
 
 
 export const defaultComponents = {
@@ -59,6 +60,7 @@ export const defaultComponents = {
   ControlBoolean,
   LoaderComponent,
   DynamicLoaderComponent,
+  ControlHttpRequest,
 };
 
 export type ReactSelectComponents = {
@@ -76,6 +78,7 @@ export type CustomComponents<Option, IsMulti extends boolean, Group extends Grou
   ControlSelect: typeof ControlSelect;
   ControlBoolean: typeof ControlBoolean;
   ControlObject: typeof ControlObject;
+  ControlHttpRequest: typeof ControlHttpRequest;
   LoaderComponent: typeof LoaderComponent;
   DynamicLoaderComponent: typeof DynamicLoaderComponent;
   OptionalFieldsContainer?: React.ComponentType<{
@@ -108,6 +111,7 @@ export type CustomizableProps = {
   controlBoolean: ComponentProps<typeof ControlBoolean> & FormFieldContext<ConfigurableProp>;
   controlInput: ComponentProps<typeof ControlInput> & FormFieldContext<ConfigurableProp>;
   controlObject: ComponentProps<typeof ControlObject> & FormFieldContext<ConfigurableProp>;
+  controlHttpRequest: ComponentProps<typeof ControlHttpRequest> & FormFieldContext<ConfigurableProp>;
   loaderComponent: ComponentProps<typeof LoaderComponent>;
   dynamicLoaderComponent: ComponentProps<typeof DynamicLoaderComponent>;
   controlSubmit: ComponentProps<typeof ControlSubmit>;
