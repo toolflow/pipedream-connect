@@ -228,6 +228,8 @@ export declare type CustomComponents<Option, IsMulti extends boolean, Group exte
     ControlSelect: typeof ControlSelect;
     ControlBoolean: typeof ControlBoolean;
     ControlObject: typeof ControlObject;
+    LoaderComponent: typeof LoaderComponent;
+    DynamicLoaderComponent: typeof DynamicLoaderComponent;
     OptionalFieldsContainer?: React.ComponentType<{
         children: React.ReactNode;
         baseStyles: CSSProperties;
@@ -252,6 +254,8 @@ export declare type CustomizableProps = {
     controlBoolean: ComponentProps<typeof ControlBoolean> & FormFieldContext<ConfigurableProp>;
     controlInput: ComponentProps<typeof ControlInput> & FormFieldContext<ConfigurableProp>;
     controlObject: ComponentProps<typeof ControlObject> & FormFieldContext<ConfigurableProp>;
+    loaderComponent: ComponentProps<typeof LoaderComponent>;
+    dynamicLoaderComponent: ComponentProps<typeof DynamicLoaderComponent>;
     controlSubmit: ComponentProps<typeof ControlSubmit>;
     description: ComponentProps<typeof Description>;
     error: ComponentProps<typeof Errors>;
@@ -345,6 +349,8 @@ export declare const defaultComponents: {
     ControlApp: typeof ControlApp;
     ControlSelect: typeof ControlSelect;
     ControlBoolean: typeof ControlBoolean;
+    LoaderComponent: typeof LoaderComponent;
+    DynamicLoaderComponent: typeof DynamicLoaderComponent;
 };
 
 export declare const defaultTheme: Theme;
@@ -356,6 +362,8 @@ declare type DescriptionProps<T extends ConfigurableProps, U extends Configurabl
     field: FormFieldContext<U>;
     form: FormContext<T>;
 };
+
+declare function DynamicLoaderComponent(): JSX_2.Element;
 
 export declare type DynamicProps<T extends ConfigurableProps> = {
     id: string;
@@ -465,6 +473,8 @@ declare type LabelProps<T extends ConfigurableProps, U extends ConfigurableProp>
     field: FormFieldContext<U>;
     form: FormContext<T>;
 };
+
+declare function LoaderComponent(): JSX_2.Element;
 
 declare const LoadMoreButton: (props: ButtonProps) => JSX_2.Element;
 

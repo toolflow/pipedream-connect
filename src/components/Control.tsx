@@ -94,6 +94,7 @@ export function Control<
       return <ControlBoolean />;
     case "string":
     case "integer":
+    case "any":
       // XXX split into ControlString, ControlInteger, etc? but want to share autoComplet="off", etc functionality in base one
       return <ControlInput />;
     case "object":
