@@ -36,6 +36,10 @@ import { OptionalFieldButton, OverrideProps } from "../components/OptionalFieldB
 import { LoadMoreButton } from "../components/LoadMoreButton";
 import { Alert } from "../components/Alert";
 import { ControlObject } from "../components/ControlObject";
+import { ControlTimer } from "../components/ControlTimer";
+import { ControlServiceDb } from "../components/ControlServiceDb";
+import { ControlInterfaceHttp } from "../components/ControlInterfaceHttp";
+import { ControlInterfaceApphook } from "../components/ControlInterfaceApphook";
 import { LoaderComponent, DynamicLoaderComponent } from "../components/LoaderComponent";
 
 
@@ -57,6 +61,10 @@ export const defaultComponents = {
   ControlApp,
   ControlSelect,
   ControlBoolean,
+  ControlTimer,
+  ControlServiceDb,
+  ControlInterfaceHttp,
+  ControlInterfaceApphook,
   LoaderComponent,
   DynamicLoaderComponent,
 };
@@ -76,6 +84,10 @@ export type CustomComponents<Option, IsMulti extends boolean, Group extends Grou
   ControlSelect: typeof ControlSelect;
   ControlBoolean: typeof ControlBoolean;
   ControlObject: typeof ControlObject;
+  ControlTimer: typeof ControlTimer;
+  ControlServiceDb: typeof ControlServiceDb;
+  ControlInterfaceHttp: typeof ControlInterfaceHttp;
+  ControlInterfaceApphook: typeof ControlInterfaceApphook;
   LoaderComponent: typeof LoaderComponent;
   DynamicLoaderComponent: typeof DynamicLoaderComponent;
   OptionalFieldsContainer?: React.ComponentType<{
@@ -108,6 +120,10 @@ export type CustomizableProps = {
   controlBoolean: ComponentProps<typeof ControlBoolean> & FormFieldContext<ConfigurableProp>;
   controlInput: ComponentProps<typeof ControlInput> & FormFieldContext<ConfigurableProp>;
   controlObject: ComponentProps<typeof ControlObject> & FormFieldContext<ConfigurableProp>;
+  controlTimer: ComponentProps<typeof ControlTimer> & FormFieldContext<ConfigurableProp>;
+  controlServiceDb: ComponentProps<typeof ControlServiceDb> & FormFieldContext<ConfigurableProp>;
+  controlInterfaceHttp: ComponentProps<typeof ControlInterfaceHttp> & FormFieldContext<ConfigurableProp>;
+  controlInterfaceApphook: ComponentProps<typeof ControlInterfaceApphook> & FormFieldContext<ConfigurableProp>;
   loaderComponent: ComponentProps<typeof LoaderComponent>;
   dynamicLoaderComponent: ComponentProps<typeof DynamicLoaderComponent>;
   controlSubmit: ComponentProps<typeof ControlSubmit>;

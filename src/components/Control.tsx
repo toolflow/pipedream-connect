@@ -27,6 +27,10 @@ export function Control<
   const { ControlSelect } = getComponents();
   const { ControlBoolean } = getComponents();
   const { ControlObject } = getComponents();
+  const { ControlTimer } = getComponents();
+  const { ControlServiceDb } = getComponents();
+  const { ControlInterfaceHttp } = getComponents();
+  const { ControlInterfaceApphook } = getComponents();
 
   const app = "app" in field.extra ? field.extra.app : undefined;
 
@@ -99,6 +103,14 @@ export function Control<
       return <ControlInput />;
     case "object":
       return <ControlObject />;
+    case "$.interface.timer" as any:
+      return <ControlTimer />;
+    case "$.service.db" as any:
+      return <ControlServiceDb />;
+    case "$.interface.http" as any:
+      return <ControlInterfaceHttp />;
+    case "$.interface.apphook" as any:
+      return <ControlInterfaceApphook />;
     default:
       // TODO "not supported prop type should bubble up"
       throw new Error("Unsupported property type: " + prop.type);

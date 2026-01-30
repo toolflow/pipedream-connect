@@ -159,6 +159,20 @@ declare type ControlInputProps = {
     }>;
 };
 
+/**
+ * Default ControlInterfaceApphook — renders nothing for $.interface.apphook props.
+ * This is an auto-provisioned app-managed webhook subscription.
+ * Override via CustomizeProvider if you need to expose it.
+ */
+export declare function ControlInterfaceApphook(): null;
+
+/**
+ * Default ControlInterfaceHttp — renders nothing for $.interface.http props.
+ * This is an auto-provisioned webhook URL endpoint.
+ * Override via CustomizeProvider if you need to expose it.
+ */
+export declare function ControlInterfaceHttp(): null;
+
 declare function ControlObject(props: ControlObjectProps): JSX_2.Element;
 
 declare type ControlObjectProps = {
@@ -204,11 +218,24 @@ declare type ControlSelectProps<T> = {
     }>;
 };
 
+/**
+ * Default ControlServiceDb — renders nothing for $.service.db props.
+ * This is an internal infrastructure prop (key-value store).
+ * Override via CustomizeProvider if you need to expose it.
+ */
+export declare function ControlServiceDb(): null;
+
 export declare function ControlSubmit(props: ControlSubmitProps): JSX_2.Element;
 
 declare type ControlSubmitProps = {
     form: FormContext;
 };
+
+/**
+ * Default ControlTimer — bare fallback for $.interface.timer props.
+ * Consumers should override this via CustomizeProvider for a richer UI.
+ */
+export declare function ControlTimer(): JSX_2.Element;
 
 export declare type CustomClassNamesConfig = {
     [K in keyof CustomizableProps]?: string | CustomClassNamesFn<K>;
@@ -228,6 +255,10 @@ export declare type CustomComponents<Option, IsMulti extends boolean, Group exte
     ControlSelect: typeof ControlSelect;
     ControlBoolean: typeof ControlBoolean;
     ControlObject: typeof ControlObject;
+    ControlTimer: typeof ControlTimer;
+    ControlServiceDb: typeof ControlServiceDb;
+    ControlInterfaceHttp: typeof ControlInterfaceHttp;
+    ControlInterfaceApphook: typeof ControlInterfaceApphook;
     LoaderComponent: typeof LoaderComponent;
     DynamicLoaderComponent: typeof DynamicLoaderComponent;
     OptionalFieldsContainer?: React.ComponentType<{
@@ -254,6 +285,10 @@ export declare type CustomizableProps = {
     controlBoolean: ComponentProps<typeof ControlBoolean> & FormFieldContext<ConfigurableProp>;
     controlInput: ComponentProps<typeof ControlInput> & FormFieldContext<ConfigurableProp>;
     controlObject: ComponentProps<typeof ControlObject> & FormFieldContext<ConfigurableProp>;
+    controlTimer: ComponentProps<typeof ControlTimer> & FormFieldContext<ConfigurableProp>;
+    controlServiceDb: ComponentProps<typeof ControlServiceDb> & FormFieldContext<ConfigurableProp>;
+    controlInterfaceHttp: ComponentProps<typeof ControlInterfaceHttp> & FormFieldContext<ConfigurableProp>;
+    controlInterfaceApphook: ComponentProps<typeof ControlInterfaceApphook> & FormFieldContext<ConfigurableProp>;
     loaderComponent: ComponentProps<typeof LoaderComponent>;
     dynamicLoaderComponent: ComponentProps<typeof DynamicLoaderComponent>;
     controlSubmit: ComponentProps<typeof ControlSubmit>;
@@ -349,6 +384,10 @@ export declare const defaultComponents: {
     ControlApp: typeof ControlApp;
     ControlSelect: typeof ControlSelect;
     ControlBoolean: typeof ControlBoolean;
+    ControlTimer: typeof ControlTimer;
+    ControlServiceDb: typeof ControlServiceDb;
+    ControlInterfaceHttp: typeof ControlInterfaceHttp;
+    ControlInterfaceApphook: typeof ControlInterfaceApphook;
     LoaderComponent: typeof LoaderComponent;
     DynamicLoaderComponent: typeof DynamicLoaderComponent;
 };
