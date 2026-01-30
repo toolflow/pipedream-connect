@@ -16612,9 +16612,7 @@ var sR = oR();
 const aR = /* @__PURE__ */ Vs(sR), Vl = [
   "$.service.db",
   "$.interface.http",
-  "$.interface.apphook",
-  "$.interface.timer"
-  // TODO add support for this (cron string and timers)
+  "$.interface.apphook"
 ], qg = Ku(void 0), Hc = () => {
   const e = uu(qg);
   if (!e)
