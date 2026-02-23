@@ -4,6 +4,7 @@ import { FormFieldContext } from "../hooks/form-field-context";
 import { ConfigurableProp } from "@pipedream/sdk";
 import { Control } from "./Control";
 import { useCustomize } from "../hooks/customization-context";
+import { useShouldSkipField } from "../hooks/use-should-skip-field";
 import type { CSSProperties } from "react";
 
 export type FieldProps<T extends ConfigurableProp> = {
@@ -26,6 +27,8 @@ export function Field<T extends ConfigurableProp>(props: FieldProps<T>) {
   const {
     getProps, getComponents,
   } = useCustomize();
+  const skipField = useShouldSkipField(prop.type);
+  if (skipField) return null;
   const baseStyles: CSSProperties = {
     display: "grid",
     gridTemplateAreas:
